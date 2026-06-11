@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; }
+  *, *::before, *::after { box-sizing:border-box; }
+  @keyframes pulseBlob { 0%,100%{opacity:.45} 50%{opacity:.85} }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#000;color:#fff;font-family:Archivo,sans-serif;overflow-x:hidden">
+
+<!-- ============ HOME ============ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div>
+  <div style="position:fixed;right:24px;top:24px;z-index:50;width:260px;display:flex;flex-direction:column;align-items:flex-end">
+    <button onClick="{{ toggleMenu }}" style="border-radius:16px;border:1px solid rgba(250,204,21,0.4);background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);padding:12px 20px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Area Cliente</button>
+    <sc-if value="{{ showUserMenu }}">
+      <div style="margin-top:12px;width:100%;overflow:hidden;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;box-shadow:0 25px 50px rgba(0,0,0,0.6)">
+        <div style="border-bottom:1px solid rgba(250,204,21,0.1);padding:16px 20px">
+          <p style="margin:0;font-size:14px;font-weight:700;color:#fff">{{ menuTitle }}</p>
+          <p style="margin:4px 0 0;font-size:12px;color:#6b7280">{{ menuSub }}</p>
+        </div>
+        <div style="padding:8px;display:flex;flex-direction:column;gap:6px">
+          <sc-if value="{{ notLoggedIn }}">
+            <button onClick="{{ goPortal }}" style="text-align:left;border-radius:16px;background:#facc15;color:#000;font-weight:900;padding:12px 16px;font-size:14px;border:none;cursor:pointer">Accedi / Registrati</button>
+          </sc-if>
+          <button onClick="{{ menuProfilo }}" style="text-align:left;border-radius:16px;padding:12px 16px;font-size:14px;font-weight:600;color:#d1d5db;background:transparent;border:none;cursor:pointer" style-hover="background:#facc15;color:#000">Profilo</button>
+          <button onClick="{{ menuStorico }}" style="text-align:left;border-radius:16px;padding:12px 16px;font-size:14px;font-weight:600;color:#d1d5db;background:transparent;border:none;cursor:pointer" style-hover="background:#facc15;color:#000">Storico lavorazioni</button>
+          <button onClick="{{ goContacts }}" style="text-align:left;border-radius:16px;padding:12px 16px;font-size:14px;font-weight:600;color:#d1d5db;background:transparent;border:none;cursor:pointer" style-hover="background:#facc15;color:#000">Contatti</button>
+          <button onClick="{{ goAbout }}" style="text-align:left;border-radius:16px;padding:12px 16px;font-size:14px;font-weight:600;color:#d1d5db;background:transparent;border:none;cursor:pointer" style-hover="background:#facc15;color:#000">Chi siamo</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <section style="position:relative;display:flex;height:100vh;align-items:center;justify-content:center;overflow:hidden">
+    <video autoplay muted loop playsinline poster="{{ heroPoster }}" style="position:absolute;inset:0;height:100%;width:100%;object-fit:cover">
+      <source src="uploads/kling_20260611_Image_to_Video_Anima_ques_4926_0.mp4" type="video/mp4" />
+    </video>
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.7)"></div>
+    <div style="position:absolute;bottom:0;left:0;height:260px;width:100%;background:linear-gradient(to top,#000,rgba(0,0,0,0.4),transparent)"></div>
+    <div style="position:absolute;right:40px;top:33%;height:384px;width:384px;border-radius:999px;background:rgba(250,204,21,0.12);filter:blur(64px);animation:pulseBlob 6s ease-in-out infinite"></div>
+    <div style="position:relative;z-index:10;max-width:900px;padding:0 24px;text-align:center">
+      <div style="display:inline-block;border-radius:999px;border:1px solid rgba(250,204,21,0.4);background:rgba(250,204,21,0.1);padding:8px 20px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.3em;color:#facc15">Premium Car Detailing</div>
+      <h1 style="margin:24px 0;font-size:84px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;line-height:0.95">G2000</h1>
+      <p style="margin:0 auto 40px;max-width:560px;font-size:22px;line-height:1.6;color:#d1d5db">La cura dell'auto sta nei piccoli dettagli.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center">
+        <button onClick="{{ goPortal }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:700;color:#000;border:none;cursor:pointer;transition:transform .2s" style-hover="background:#fde047;transform:scale(1.05)">Prenota Ora</button>
+        <button onClick="{{ goContacts }}" style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 32px;font-size:18px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Contattaci</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#09090b;padding:96px 24px">
+    <div style="margin:0 auto;max-width:1280px">
+      <div style="margin-bottom:64px;text-align:center">
+        <h2 style="margin:0 0 16px;font-size:48px;font-weight:900;text-transform:uppercase;color:#fff">I Nostri Servizi</h2>
+        <p style="margin:0 auto;max-width:760px;font-size:18px;line-height:1.6;color:#9ca3af">Esperienza premium, precisione assoluta e attenzione ai dettagli per ogni veicolo.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px">
+        <sc-for list="{{ services }}" as="service" hint-placeholder-count="4">
+          <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#000;padding:32px;transition:transform .3s,border-color .3s" style-hover="border-color:#facc15;transform:translateY(-8px)">
+            <div style="margin-bottom:24px;display:flex;height:56px;width:56px;align-items:center;justify-content:center;border-radius:16px;background:#facc15;font-size:24px;font-weight:900;color:#000">{{ service.num }}</div>
+            <h3 style="margin:0 0 16px;font-size:24px;font-weight:700;color:#fff">{{ service.title }}</h3>
+            <p style="margin:0;line-height:1.6;color:#9ca3af">{{ service.description }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#000;padding:96px 24px">
+    <div style="margin:0 auto;max-width:1280px">
+      <div style="margin-bottom:64px;text-align:center">
+        <h2 style="margin:0 0 16px;font-size:48px;font-weight:900;text-transform:uppercase;color:#fff">Esperienza G2000</h2>
+        <p style="margin:0 auto;max-width:760px;font-size:18px;line-height:1.6;color:#9ca3af">Ogni servizio G2000 dispone di una sezione dedicata con immagini professionali, dettagli tecnici e descrizioni complete.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:40px">
+        <sc-for list="{{ serviceSlides }}" as="slide" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));overflow:hidden;border-radius:40px;border:1px solid rgba(250,204,21,0.2);background:#09090b">
+            <div style="position:relative;min-height:320px">
+              <sc-if value="{{ slide.isVideo }}">
+                <video src="{{ slide.video }}" autoplay muted loop playsinline style="position:absolute;inset:0;height:100%;width:100%;object-fit:cover"></video>
+              </sc-if>
+              <sc-if value="{{ slide.notVideo }}" hint-placeholder-val="{{ true }}">
+                <img src="{{ slide.image }}" alt="{{ slide.title }}" style="position:absolute;inset:0;height:100%;width:100%;object-fit:cover" />
+              </sc-if>
+              <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3)"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:center;padding:56px">
+              <div style="margin-bottom:20px;display:flex;height:64px;width:64px;align-items:center;justify-content:center;border-radius:16px;background:#facc15;font-size:24px;font-weight:900;color:#000">{{ slide.id }}</div>
+              <h3 style="margin:0 0 24px;font-size:36px;font-weight:900;text-transform:uppercase;color:#fff">{{ slide.title }}</h3>
+              <p style="margin:0;font-size:18px;line-height:1.6;color:#9ca3af">{{ slide.description }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#000;padding:96px 24px">
+    <div style="margin:0 auto;max-width:1280px">
+      <div style="margin-bottom:64px;text-align:center">
+        <h2 style="margin:0 0 16px;font-size:48px;font-weight:900;text-transform:uppercase;color:#fff">Prima &amp; Dopo</h2>
+        <p style="margin:0;font-size:18px;color:#9ca3af">Ogni dettaglio viene curato con precisione professionale.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+        <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="3">
+          <div style="overflow:hidden;border-radius:24px;border:1px solid rgba(250,204,21,0.2)">
+            <video src="{{ g }}" autoplay muted loop playsinline style="display:block;height:400px;width:100%;object-fit:cover"></video>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#09090b;padding:96px 24px">
+    <div style="margin:0 auto;max-width:1280px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:center;gap:48px">
+        <div>
+          <div style="display:inline-block;margin-bottom:20px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Aziende e Collab</div>
+          <h2 style="margin:0 0 24px;font-size:44px;font-weight:900;text-transform:uppercase;line-height:1.1;color:#fff">Soluzioni dedicate per aziende e partner</h2>
+          <p style="margin:0 0 32px;font-size:18px;line-height:1.6;color:#9ca3af">G2000 collabora con aziende, concessionarie, noleggi, officine, carrozzerie e realtà automotive che cercano un servizio professionale, puntuale e curato nei minimi dettagli.</p>
+          <button onClick="{{ goPortal }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Accedi o registrati per collaborare</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <sc-for list="{{ collab }}" as="opt" hint-placeholder-count="3">
+            <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#000;padding:28px;transition:border-color .3s" style-hover="border-color:#facc15">
+              <div style="margin-bottom:16px;display:flex;align-items:center;gap:16px">
+                <div style="display:flex;height:48px;width:48px;align-items:center;justify-content:center;border-radius:16px;background:#facc15;font-size:20px;font-weight:900;color:#000">{{ opt.num }}</div>
+                <h3 style="margin:0;font-size:24px;font-weight:900;color:#fff">{{ opt.title }}</h3>
+              </div>
+              <p style="margin:0;line-height:1.6;color:#9ca3af">{{ opt.description }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#000;padding:96px 24px">
+    <div style="margin:0 auto;max-width:1280px;text-align:center">
+      <h2 style="margin:0 0 64px;font-size:48px;font-weight:900;text-transform:uppercase;color:#fff">Cosa dicono i clienti</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px">
+        <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="3">
+          <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px;text-align:left">
+            <p style="margin:0 0 24px;line-height:1.6;color:#d1d5db">"Servizio impeccabile, auto tornata come nuova. Staff professionale e velocissimo."</p>
+            <div><h4 style="margin:0;font-size:18px;font-weight:700;color:#facc15">Cliente Premium</h4><p style="margin:4px 0 0;color:#6b7280">Google Review</p></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid rgba(250,204,21,0.2);background:#09090b;padding:40px 24px;text-align:center;color:#6b7280">
+    <h3 style="margin:0 0 8px;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h3>
+    <p style="margin:0">Via Sicilia 140 · Quartu Sant'Elena · 09045 · +39 3294867819</p>
+    <p style="margin:16px 0 0;font-size:14px">© 2026 G2000 · Tutti i diritti riservati.</p>
+  </footer>
+</div>
+</sc-if>
+
+<!-- ============ PORTALE / LOGIN ============ -->
+<sc-if value="{{ isPortal }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Customer Portal</p></div>
+      <button onClick="{{ goHome }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Torna Indietro</button>
+    </div>
+  </div>
+  <section style="display:flex;min-height:85vh;align-items:center;justify-content:center;padding:80px 24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));width:100%;max-width:1100px;overflow:hidden;border-radius:40px;border:1px solid rgba(250,204,21,0.2);background:#09090b">
+      <div style="display:flex;flex-direction:column;justify-content:center;background:#000;padding:48px">
+        <div style="display:inline-block;width:fit-content;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Area Clienti G2000</div>
+        <h2 style="margin:0 0 24px;font-size:44px;font-weight:900;text-transform:uppercase;line-height:1.1;color:#fff">Accedi al tuo portale</h2>
+        <p style="margin:0 0 40px;font-size:18px;line-height:1.6;color:#9ca3af">Gestisci le tue richieste di preventivo, controlla lo stato dei servizi e ricevi aggiornamenti direttamente dal team G2000.</p>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <input type="text" placeholder="Nome Utente" style="width:100%;border-radius:16px;border:1px solid #3f3f46;background:#09090b;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          <input type="password" placeholder="Password" style="width:100%;border-radius:16px;border:1px solid #3f3f46;background:#09090b;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          <button onClick="{{ doLogin }}" style="width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Accedi al Portale</button>
+          <button onClick="{{ goRegister }}" style="width:100%;border-radius:16px;border:1px solid #facc15;background:transparent;padding:20px;font-size:18px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Registrati</button>
+          <sc-if value="{{ loginMessage }}">
+            <div style="border-radius:16px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.1);padding:16px;text-align:center;color:#4ade80">{{ loginMessage }}</div>
+          </sc-if>
+        </div>
+      </div>
+      <div style="position:relative;min-height:320px;background-image:url({{ portalImg }});background-size:cover;background-position:center">
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.6)"></div>
+        <div style="position:relative;z-index:10;display:flex;height:100%;flex-direction:column;justify-content:flex-end;padding:48px">
+          <h3 style="margin:0 0 16px;font-size:36px;font-weight:900;text-transform:uppercase;color:#fff">G2000 Premium Experience</h3>
+          <p style="margin:0;max-width:420px;font-size:18px;line-height:1.6;color:#d1d5db">Tutte le richieste di preventivo verranno inoltrate automaticamente alla vostra email personale tramite integrazione backend dedicata.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ REGISTRAZIONE ============ -->
+<sc-if value="{{ isRegister }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Registrazione Portale</p></div>
+      <button onClick="{{ goPortal }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Torna al Login</button>
+    </div>
+  </div>
+  <section style="display:flex;min-height:85vh;align-items:center;justify-content:center;padding:80px 24px">
+    <div style="width:100%;max-width:900px;border-radius:40px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:56px">
+      <div style="margin-bottom:40px;text-align:center">
+        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Crea Account</div>
+        <h2 style="margin:0 0 16px;font-size:42px;font-weight:900;text-transform:uppercase;color:#fff">Registrati al portale</h2>
+        <p style="margin:0 auto;max-width:560px;font-size:18px;line-height:1.6;color:#9ca3af">Crea il tuo account per gestire richieste, preventivi e comunicazioni con G2000.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">
+        <input type="text" placeholder="Nome e Cognome" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <input type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <input type="email" placeholder="Email" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <select style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit"><option>Tipo account</option><option>Cliente privato</option><option>Azienda / Collaborazione</option></select>
+        <input type="text" placeholder="Nome Utente" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <input type="password" placeholder="Password" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <input type="password" placeholder="Conferma Password" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+      </div>
+      <button onClick="{{ doRegister }}" style="margin-top:32px;width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Crea Account</button>
+      <sc-if value="{{ registrationMessage }}">
+        <div style="margin-top:24px;border-radius:16px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.1);padding:20px;text-align:center;color:#4ade80">{{ registrationMessage }}</div>
+      </sc-if>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ DASHBOARD ============ -->
+<sc-if value="{{ isDashboard }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Dashboard Cliente</p></div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <button onClick="{{ goProfile }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Profilo</button>
+        <button onClick="{{ goHistory }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Storico Lavorazioni</button>
+        <button onClick="{{ goHome }}" style="border-radius:12px;background:#facc15;padding:12px 20px;font-size:14px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Home Page</button>
+      </div>
+    </div>
+  </div>
+  <section style="padding:80px 24px">
+    <div style="margin:0 auto;max-width:1280px">
+      <div style="margin-bottom:48px">
+        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Benvenuto in G2000</div>
+        <h2 style="margin:0 0 16px;font-size:52px;font-weight:900;text-transform:uppercase;color:#fff">Il tuo portale</h2>
+        <p style="margin:0;max-width:760px;font-size:18px;line-height:1.6;color:#9ca3af">Da qui potrai seguire lo stato delle richieste, visualizzare i preventivi ricevuti e gestire le comunicazioni con il team G2000.</p>
+      </div>
+      <div style="margin-bottom:40px;overflow:hidden;border-radius:40px;border:1px solid rgba(250,204,21,0.2);background:#09090b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+          <div style="background:#facc15;padding:32px;color:#000">
+            <div style="margin-bottom:24px;display:flex;height:64px;width:64px;align-items:center;justify-content:center;border-radius:16px;background:#000">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+            </div>
+            <h3 style="margin:0 0 16px;font-size:30px;font-weight:900;text-transform:uppercase">Calendario Lavaggi</h3>
+            <p style="margin:0;font-size:16px;font-weight:600;line-height:1.6;color:rgba(0,0,0,0.8)">Banner dedicato al futuro sistema di prenotazione rapida per i lavaggi standard.</p>
+          </div>
+          <div style="grid-column:span 2;padding:32px">
+            <div style="margin-bottom:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+              <div>
+                <p style="margin:0 0 8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Prossimamente</p>
+                <h3 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#fff">Prenota il tuo lavaggio standard</h3>
+              </div>
+              <button style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 24px;font-weight:900;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Apri Calendario</button>
+            </div>
+            <p style="margin:0 0 24px;max-width:760px;line-height:1.6;color:#9ca3af">Questa sezione verrà collegata a un calendario reale per selezionare data, fascia oraria e disponibilità dei lavaggi standard direttamente dal portale cliente.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px">
+              <sc-for list="{{ calFeatures }}" as="f" hint-placeholder-count="3">
+                <div style="border-radius:16px;border:1px solid rgba(250,204,21,0.1);background:#000;padding:16px;font-size:14px;font-weight:600;color:#d1d5db">{{ f }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px">
+        <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <h3 style="margin:0 0 16px;font-size:24px;font-weight:900;color:#facc15">Richieste Preventivo</h3>
+          <p style="margin:0 0 24px;line-height:1.6;color:#9ca3af">Controlla le richieste inviate e lo stato di lavorazione.</p>
+          <div style="border-radius:16px;background:#000;padding:20px;color:#d1d5db">Nessuna richiesta attiva al momento.</div>
+        </div>
+        <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <h3 style="margin:0 0 16px;font-size:24px;font-weight:900;color:#facc15">Servizi G2000</h3>
+          <p style="margin:0 0 24px;line-height:1.6;color:#9ca3af">Accedi rapidamente ai trattamenti e richiedi un preventivo personalizzato.</p>
+          <button onClick="{{ goBooking }}" style="margin-bottom:16px;width:100%;border-radius:16px;background:#facc15;padding:16px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Preventivo Privato</button>
+          <button onClick="{{ goCollab }}" style="width:100%;border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px;font-weight:900;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Preventivo Aziendale</button>
+        </div>
+        <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <h3 style="margin:0 0 16px;font-size:24px;font-weight:900;color:#facc15">Profilo</h3>
+          <p style="margin:0 0 24px;line-height:1.6;color:#9ca3af">Gestisci i dati del tuo account e le informazioni di contatto.</p>
+          <button onClick="{{ goProfile }}" style="width:100%;border-radius:16px;background:#000;padding:20px;text-align:left;font-weight:600;color:#d1d5db;border:none;cursor:pointer" style-hover="background:#facc15;color:#000">Apri profilo cliente</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ PROFILO ============ -->
+<sc-if value="{{ isProfile }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Profilo Cliente</p></div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <button onClick="{{ goDashboard }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Torna Indietro</button>
+        <button onClick="{{ doLogout }}" style="border-radius:12px;background:#facc15;padding:12px 20px;font-size:14px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Logout</button>
+      </div>
+    </div>
+  </div>
+  <section style="padding:80px 24px">
+    <div style="margin:0 auto;max-width:1280px">
+      <div style="margin-bottom:48px">
+        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Area Personale</div>
+        <h2 style="margin:0 0 16px;font-size:52px;font-weight:900;text-transform:uppercase;color:#fff">Profilo cliente</h2>
+        <p style="margin:0;max-width:760px;font-size:18px;line-height:1.6;color:#9ca3af">Gestisci i tuoi dati, collega le targhe e i modelli delle tue auto e comunica con l'assistenza G2000 direttamente dal portale.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px">
+        <div style="grid-column:span 2;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <h3 style="margin:0 0 24px;font-size:30px;font-weight:900;color:#facc15">Dati personali</h3>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+            <input type="text" value="Cliente G2000" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="text" value="cliente_g2000" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="email" value="cliente@g2000.it" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="tel" value="+39 3294867819" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          </div>
+          <button style="margin-top:32px;border-radius:16px;background:#facc15;padding:16px 32px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Salva modifiche</button>
+        </div>
+        <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <h3 style="margin:0 0 24px;font-size:30px;font-weight:900;color:#facc15">Funzioni profilo</h3>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <sc-for list="{{ profileFeatures }}" as="f" hint-placeholder-count="3">
+              <div style="border-radius:16px;border:1px solid rgba(250,204,21,0.1);background:#000;padding:16px;font-size:14px;font-weight:600;color:#d1d5db">{{ f }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px">
+        <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <div style="margin-bottom:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+            <div>
+              <h3 style="margin:0;font-size:30px;font-weight:900;color:#facc15">Targhe e modelli auto</h3>
+              <p style="margin:8px 0 0;color:#9ca3af">Collega ogni lavorazione alla targa del cliente per creare lo storico completo del veicolo.</p>
+            </div>
+            <button style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Aggiungi auto</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <sc-for list="{{ vehicles }}" as="v" hint-placeholder-count="2">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;border-radius:16px;border:1px solid rgba(250,204,21,0.1);background:#000;padding:20px">
+                <input type="text" value="{{ v.plate }}" style="border-radius:12px;border:1px solid #3f3f46;background:#09090b;padding:12px 16px;text-transform:uppercase;color:#fff;outline:none;font-family:inherit" style-focus="border-color:#facc15" />
+                <input type="text" value="{{ v.model }}" style="border-radius:12px;border:1px solid #3f3f46;background:#09090b;padding:12px 16px;color:#fff;outline:none;font-family:inherit" style-focus="border-color:#facc15" />
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <div style="margin-bottom:24px">
+            <p style="margin:0 0 8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Assistenza H24</p>
+            <h3 style="margin:0;font-size:30px;font-weight:900;color:#fff">Messaggi diretti G2000</h3>
+            <p style="margin:8px 0 0;color:#9ca3af">Scrivi al supporto senza uscire dal sito e senza usare altre applicazioni.</p>
+          </div>
+          <div style="margin-bottom:20px;display:flex;flex-direction:column;gap:16px;height:288px;overflow-y:auto;border-radius:16px;border:1px solid rgba(250,204,21,0.1);background:#000;padding:20px">
+            <sc-for list="{{ messages }}" as="chat" hint-placeholder-count="2">
+              <div style="{{ chat.style }}">
+                <p style="margin:0 0 4px;font-size:12px;font-weight:900;text-transform:uppercase;opacity:0.7">{{ chat.sender }}</p>
+                <p style="margin:0;font-size:14px;line-height:1.5">{{ chat.message }}</p>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:16px">
+            <input type="text" placeholder="Scrivi un messaggio..." style="flex:1;min-width:160px;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-family:inherit" style-focus="border-color:#facc15" />
+            <button style="border-radius:16px;background:#facc15;padding:16px 32px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Invia</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ STORICO ============ -->
+<sc-if value="{{ isHistory }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Storico Lavorazioni</p></div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <button onClick="{{ goProfile }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Profilo</button>
+        <button onClick="{{ goHome }}" style="border-radius:12px;background:#facc15;padding:12px 20px;font-size:14px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Home Page</button>
+      </div>
+    </div>
+  </div>
+  <section style="padding:80px 24px">
+    <div style="margin:0 auto;max-width:1280px">
+      <div style="margin-bottom:48px">
+        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Database targhe</div>
+        <h2 style="margin:0 0 24px;font-size:52px;font-weight:900;text-transform:uppercase;color:#fff">Storico lavorazioni</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between">
+          <p style="margin:0;max-width:760px;font-size:18px;line-height:1.6;color:#9ca3af">In questa sezione verranno raccolte le lavorazioni associate alle targhe dei clienti, così ogni veicolo avrà uno storico completo e consultabile dal portale.</p>
+          <button onClick="{{ toggleAddForm }}" style="display:flex;height:64px;width:64px;flex-shrink:0;align-items:center;justify-content:center;border-radius:16px;background:#facc15;font-size:36px;font-weight:900;color:#000;border:none;cursor:pointer;line-height:1" style-hover="background:#fde047">+</button>
+        </div>
+      </div>
+      <sc-if value="{{ showAddForm }}">
+        <div style="margin-bottom:32px;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <div style="margin-bottom:24px">
+            <h3 style="margin:0;font-size:30px;font-weight:900;color:#facc15">Aggiungi veicolo</h3>
+            <p style="margin:8px 0 0;color:#9ca3af">Inserisci targa e modello per collegare il veicolo allo storico lavorazioni del cliente.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+            <input type="text" value="{{ newPlate }}" onInput="{{ setPlate }}" placeholder="Targa" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;text-transform:uppercase;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="text" value="{{ newModel }}" onInput="{{ setModel }}" placeholder="Modello" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          </div>
+          <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:16px">
+            <button onClick="{{ addVehicle }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Salva veicolo</button>
+            <button onClick="{{ toggleAddForm }}" style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 32px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Annulla</button>
+          </div>
+        </div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <sc-for list="{{ historyVehicles }}" as="item" hint-placeholder-count="2">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;align-items:center;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:24px">
+            <div><p style="margin:0 0 4px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#6b7280">Targa</p><p style="margin:0;font-size:24px;font-weight:900;color:#facc15">{{ item.plate }}</p></div>
+            <div><p style="margin:0 0 4px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#6b7280">Modello</p><p style="margin:0;font-weight:600;color:#fff">{{ item.model }}</p></div>
+            <div><p style="margin:0 0 4px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#6b7280">Servizio</p><p style="margin:0;font-weight:600;color:#fff">{{ item.service }}</p></div>
+            <div><p style="margin:0 0 4px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#6b7280">Data</p><p style="margin:0;font-weight:600;color:#d1d5db">{{ item.date }}</p></div>
+            <div style="border-radius:16px;border:1px solid rgba(250,204,21,0.2);background:#000;padding:16px;text-align:center;font-size:14px;font-weight:700;color:#facc15">{{ item.status }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ CONTATTI ============ -->
+<sc-if value="{{ isContacts }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Contatti</p></div>
+      <button onClick="{{ goHome }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Home Page</button>
+    </div>
+  </div>
+  <section style="position:relative;display:flex;min-height:80vh;align-items:center;overflow:hidden;padding:80px 24px;background-image:url({{ contactBg }});background-size:cover;background-position:center">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.78)"></div>
+    <div style="position:absolute;right:40px;top:30%;height:384px;width:384px;border-radius:999px;background:rgba(250,204,21,0.1);filter:blur(64px);animation:pulseBlob 6s ease-in-out infinite"></div>
+    <div style="position:relative;z-index:10;margin:0 auto;width:100%;max-width:1280px">
+      <div style="margin-bottom:48px;max-width:760px">
+        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Restiamo in contatto</div>
+        <h2 style="margin:0 0 24px;font-size:52px;font-weight:900;text-transform:uppercase;color:#fff">Contatti G2000</h2>
+        <p style="margin:0;font-size:18px;line-height:1.6;color:#d1d5db">Scegli il canale che preferisci per contattarci. Ogni pulsante è già predisposto per collegarsi al link che inserirai in futuro.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">
+        <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="4">
+          <a href="{{ c.href }}" target="_blank" rel="noreferrer" style="display:block;border-radius:32px;border:1px solid rgba(250,204,21,0.2);background:rgba(9,9,11,0.9);backdrop-filter:blur(8px);padding:32px;text-decoration:none;transition:transform .2s,border-color .2s" style-hover="border-color:#facc15;transform:translateY(-4px)">
+            <div style="margin-bottom:20px;display:flex;height:64px;width:64px;align-items:center;justify-content:center;border-radius:16px;background:#facc15;font-size:22px;font-weight:900;color:#000">{{ c.initial }}</div>
+            <h3 style="margin:0 0 12px;font-size:24px;font-weight:900;text-transform:uppercase;color:#fff">{{ c.label }}</h3>
+            <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#9ca3af">{{ c.description }}</p>
+            <span style="display:inline-flex;border-radius:16px;border:1px solid #facc15;padding:12px 16px;font-size:14px;font-weight:700;color:#facc15">Apri collegamento</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ PREVENTIVO PRIVATO ============ -->
+<sc-if value="{{ isBooking }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Carwash &amp; Detailing</p></div>
+      <button onClick="{{ goHome }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Torna Indietro</button>
+    </div>
+  </div>
+  <section style="padding:80px 24px">
+    <div style="margin:0 auto;max-width:1100px">
+      <div style="margin-bottom:56px;text-align:center">
+        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Prenotazione Online</div>
+        <h2 style="margin:0 0 24px;font-size:52px;font-weight:900;text-transform:uppercase;color:#fff">Prenota il tuo servizio</h2>
+        <p style="margin:0 auto;max-width:560px;font-size:18px;line-height:1.6;color:#9ca3af">Scegli il trattamento perfetto per la tua auto e richiedi un preventivo personalizzato.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px">
+        <div style="grid-column:span 2;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <h3 style="margin:0 0 32px;font-size:30px;font-weight:900;color:#fff">Dati Preventivo</h3>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+            <input type="text" placeholder="Nome e Cognome" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="email" placeholder="Email" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="text" placeholder="Targa veicolo" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;text-transform:uppercase;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <select style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit">
+              <option>Seleziona Servizio</option><option>Lavaggio Esterno</option><option>Lavaggio Completo</option><option>Detailing Premium</option><option>Trattamento Ceramico</option><option>Lucidature a Step</option><option>Ripristino Fari</option><option>Ozono Terapia</option><option>Sanificazione Interni</option>
+            </select>
+            <textarea placeholder="Note aggiuntive" rows="5" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit;resize:vertical" style-focus="border-color:#facc15"></textarea>
+          </div>
+          <button onClick="{{ submitQuote }}" style="margin-top:32px;width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Richiedi Preventivo</button>
+          <sc-if value="{{ requestSent }}">
+            <div style="margin-top:24px;border-radius:16px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.1);padding:20px;text-align:center;color:#4ade80">Richiesta inviata correttamente. Reindirizzamento al portale clienti...</div>
+          </sc-if>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+            <h3 style="margin:0 0 24px;font-size:24px;font-weight:900;color:#facc15">Orari Disponibili</h3>
+            <div style="display:flex;flex-direction:column;gap:16px;color:#d1d5db">
+              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Lunedì - Sabato</span><span style="font-weight:700;color:#facc15">09:00 - 19:00</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Domenica</span><span style="font-weight:700;color:#f87171">Chiuso</span></div>
+            </div>
+          </div>
+          <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+            <h3 style="margin:0 0 24px;font-size:24px;font-weight:900;color:#facc15">Contatto Rapido</h3>
+            <p style="margin:0 0 24px;line-height:1.6;color:#9ca3af">Preferisci prenotare direttamente? Contattaci subito su WhatsApp.</p>
+            <button style="width:100%;border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 24px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Scrivici su WhatsApp</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ PREVENTIVO AZIENDALE ============ -->
+<sc-if value="{{ isCollab }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Aziende e Collab</p></div>
+      <button onClick="{{ goHome }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Torna Indietro</button>
+    </div>
+  </div>
+  <section style="padding:80px 24px">
+    <div style="margin:0 auto;max-width:1100px">
+      <div style="margin-bottom:56px;text-align:center">
+        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Preventivo Aziendale</div>
+        <h2 style="margin:0 0 24px;font-size:52px;font-weight:900;text-transform:uppercase;color:#fff">Aziende e collaborazioni</h2>
+        <p style="margin:0 auto;max-width:760px;font-size:18px;line-height:1.6;color:#9ca3af">Una pagina dedicata esclusivamente ad aziende, concessionarie, noleggi, officine, carrozzerie e partner che desiderano un preventivo su misura.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px">
+        <div style="grid-column:span 2;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+          <h3 style="margin:0 0 32px;font-size:30px;font-weight:900;color:#fff">Dati Aziendali</h3>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+            <input type="text" placeholder="Nome Società" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="text" placeholder="Referente aziendale" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="email" placeholder="Email" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="text" placeholder="Numero indicativo veicoli" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="text" placeholder="Targa veicolo" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;text-transform:uppercase;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          </div>
+          <button onClick="{{ submitQuote }}" style="margin-top:32px;width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Richiedi Preventivo Aziendale</button>
+          <sc-if value="{{ requestSent }}">
+            <div style="margin-top:24px;border-radius:16px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.1);padding:20px;text-align:center;color:#4ade80">Richiesta aziendale inviata correttamente. Reindirizzamento al portale clienti...</div>
+          </sc-if>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+            <h3 style="margin:0 0 24px;font-size:24px;font-weight:900;color:#facc15">Soluzioni su misura</h3>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <sc-for list="{{ collab }}" as="opt" hint-placeholder-count="3">
+                <div style="border-radius:16px;background:#000;padding:16px">
+                  <h4 style="margin:0 0 8px;font-weight:700;color:#fff">{{ opt.title }}</h4>
+                  <p style="margin:0;font-size:14px;line-height:1.6;color:#6b7280">{{ opt.description }}</p>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
+            <h3 style="margin:0 0 24px;font-size:24px;font-weight:900;color:#facc15">Orari</h3>
+            <div style="display:flex;flex-direction:column;gap:16px;color:#d1d5db">
+              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Lunedì - Sabato</span><span style="font-weight:700;color:#facc15">09:00 - 19:00</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Domenica</span><span style="font-weight:700;color:#f87171">Chiuso</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ CHI SIAMO ============ -->
+<sc-if value="{{ isAbout }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Chi siamo</p></div>
+      <button onClick="{{ goHome }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Torna Indietro</button>
+    </div>
+  </div>
+  <section style="padding:80px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:center;gap:48px">
+      <div>
+        <div style="display:inline-block;margin-bottom:20px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">La nostra identità</div>
+        <h2 style="margin:0 0 32px;font-size:52px;font-weight:900;text-transform:uppercase;line-height:1.1;color:#fff">Chi siamo</h2>
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <sc-for list="{{ about }}" as="para" hint-placeholder-count="4">
+            <p style="{{ para.style }}">{{ para.text }}</p>
+          </sc-for>
+        </div>
+        <button onClick="{{ goPortal }}" style="margin-top:40px;border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Accedi o Registrati</button>
+      </div>
+      <div style="overflow:hidden;border-radius:40px;border:1px solid rgba(250,204,21,0.2);background:#09090b">
+        <div style="position:relative;min-height:480px;background-image:url({{ aboutImg }});background-size:cover;background-position:center">
+          <div style="position:absolute;inset:0;display:flex;align-items:flex-end;background:rgba(0,0,0,0.5);padding:40px">
+            <div>
+              <h3 style="margin:0 0 12px;font-size:36px;font-weight:900;text-transform:uppercase;color:#fff">G2000 Detailing</h3>
+              <p style="margin:0;max-width:420px;color:#d1d5db">Precisione, metodo e passione in ogni trattamento.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ LOGOUT ============ -->
+<sc-if value="{{ isLogout }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Logout Profilo</p></div>
+      <button onClick="{{ goHome }}" style="border-radius:12px;background:#facc15;padding:12px 20px;font-size:14px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Home Page</button>
+    </div>
+  </div>
+  <section style="display:flex;min-height:80vh;align-items:center;justify-content:center;padding:80px 24px">
+    <div style="margin:0 auto;max-width:760px;border-radius:40px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:64px;text-align:center">
+      <div style="margin:0 auto 32px;display:flex;height:80px;width:80px;align-items:center;justify-content:center;border-radius:24px;background:#facc15">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Uscita completata</div>
+      <h2 style="margin:0 0 24px;font-size:52px;font-weight:900;text-transform:uppercase;color:#fff">Logout effettuato</h2>
+      <p style="margin:0 auto 40px;max-width:560px;font-size:18px;line-height:1.6;color:#9ca3af">Sei uscito correttamente dal tuo profilo G2000. Puoi tornare alla home page oppure accedere nuovamente al portale quando vuoi.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center">
+        <button onClick="{{ goPortal }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Accedi di nuovo</button>
+        <button onClick="{{ goHome }}" style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 32px;font-size:18px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Home Page</button>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    page: 'home',
+    isLoggedIn: false,
+    showUserMenu: false,
+    requestSent: false,
+    loginMessage: '',
+    registrationMessage: '',
+    showAddForm: false,
+    newPlate: '',
+    newModel: '',
+    historyVehicles: [
+      { plate:'CA000AA', model:'Auto principale', service:'Lavaggio Completo 3PH', date:'In attesa database', status:'Storico in preparazione' },
+      { plate:'CA111BB', model:'Seconda auto', service:'Sanificazione Interni', date:'In attesa database', status:'Storico in preparazione' }
+    ]
+  };
+
+  playHero() {
+    document.querySelectorAll('video').forEach(v => {
+      v.loop = true;
+      v.muted = true;
+      v.playsInline = true;
+      if (!v.dataset.looped) {
+        v.dataset.looped = '1';
+        v.addEventListener('ended', () => { v.currentTime = 0; v.play().catch(() => {}); });
+      }
+      v.play().catch(() => {});
+    });
+  }
+  componentDidMount() {
+    setTimeout(() => this.playHero(), 50);
+    if (!window.__g2000Glow) {
+      window.__g2000Glow = true;
+      const glow = document.createElement('div');
+      glow.style.cssText = 'position:fixed;top:-280px;left:-280px;width:560px;height:560px;border-radius:50%;pointer-events:none;z-index:60;mix-blend-mode:screen;background:radial-gradient(circle,rgba(250,204,21,0.22),rgba(250,204,21,0.09) 42%,transparent 70%);transform:translate3d(-9999px,-9999px,0);transition:transform .12s ease-out;will-change:transform';
+      document.body.appendChild(glow);
+      window.addEventListener('pointermove', e => {
+        glow.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0)';
+      });
+    }
+  }
+  componentDidUpdate() { this.playHero(); }
+
+  go(page) {
+    this.setState({ page, showUserMenu:false, requestSent:false, loginMessage:'', registrationMessage:'', showAddForm:false, newPlate:'', newModel:'' });
+  }
+  doLogin() {
+    this.setState({ loginMessage:'Accesso effettuato. Apertura dashboard...' });
+    setTimeout(() => this.setState({ isLoggedIn:true, page:'dashboard', loginMessage:'' }), 800);
+  }
+  doRegister() {
+    this.setState({ registrationMessage:'Registrazione completata correttamente. Accesso al portale in corso...' });
+    setTimeout(() => this.setState({ isLoggedIn:true, page:'dashboard', registrationMessage:'' }), 1000);
+  }
+  submitQuote() {
+    this.setState({ requestSent:true });
+    setTimeout(() => this.setState({ isLoggedIn:true, page:'home', requestSent:false }), 1200);
+  }
+  doLogout() {
+    this.setState({ page:'logout', isLoggedIn:false, showUserMenu:false });
+  }
+  addVehicle() {
+    const plate = (this.state.newPlate||'').trim().toUpperCase();
+    const model = (this.state.newModel||'').trim();
+    if (!plate || !model) return;
+    this.setState(s => ({
+      historyVehicles: [{ plate, model, service:'Nessuna lavorazione registrata', date:'In attesa database', status:'Veicolo aggiunto dal cliente' }, ...s.historyVehicles],
+      newPlate:'', newModel:'', showAddForm:false
+    }));
+  }
+
+  renderVals() {
+    const p = this.state.page;
+    const li = this.state.isLoggedIn;
+    const U = 'https://images.unsplash.com/';
+    return {
+      isHome: p==='home', isBooking: p==='booking', isCollab: p==='collab',
+      isPortal: p==='portal', isRegister: p==='register', isDashboard: p==='dashboard',
+      isAbout: p==='about', isProfile: p==='profile', isHistory: p==='history',
+      isContacts: p==='contacts', isLogout: p==='logout',
+      isLoggedIn: li, notLoggedIn: !li,
+      showUserMenu: this.state.showUserMenu,
+      menuTitle: li ? 'Login effettuato' : 'Accesso non effettuato',
+      menuSub: li ? 'Portale G2000 attivo' : 'Puoi accedere o registrarti',
+      requestSent: this.state.requestSent,
+      loginMessage: this.state.loginMessage,
+      registrationMessage: this.state.registrationMessage,
+      showAddForm: this.state.showAddForm,
+      newPlate: this.state.newPlate,
+      newModel: this.state.newModel,
+      historyVehicles: this.state.historyVehicles,
+
+      heroPoster: U+'photo-1607860108855-64acf2078ed9?q=80&w=1600&auto=format&fit=crop',
+      portalImg: U+'photo-1503376780353-7e6692767b70?q=80&w=1400&auto=format&fit=crop',
+      aboutImg: U+'photo-1550355291-bbee04a92027?q=80&w=1400&auto=format&fit=crop',
+      contactBg: U+'photo-1607860108855-64acf2078ed9?q=80&w=1600&auto=format&fit=crop',
+
+      services: [
+        { num:1, title:'Lavaggio Completo', description:'Lavaggio interno ed esterno professionale con finitura premium.' },
+        { num:2, title:'Detailing Premium', description:'Lucidatura, protezione ceramica e ripristino estetico completo.' },
+        { num:3, title:'Sanificazione Interni', description:'Pulizia approfondita di sedili, moquette e superfici con prodotti specifici antibatterici e trattamento igienizzante.' },
+        { num:4, title:'Ritiro e Consegna', description:'Servizio dedicato per il massimo comfort dei clienti.' }
+      ],
+      serviceSlides: [
+        { id:1, title:'Lavaggio Completo', isVideo:true, notVideo:false, video:'uploads/kling_20260611_Image_to_Video_Anima_ques_4926_0.mp4', image:U+'photo-1607860108855-64acf2078ed9?q=80&w=1400&auto=format&fit=crop', description:'Trattamento completo interno ed esterno eseguito con tecnica professionale 3PH a tre fasi, con prelavaggio alcalino, shampoo neutro e trattamento finale protettivo. Include asciugatura manuale e finitura premium.' },
+        { id:2, title:'Detailing Premium', isVideo:true, notVideo:false, video:'uploads/kling_20260611_Image_to_Video_Anima_ques_5052_0.mp4', image:U+'photo-1553440569-bcc63803a83d?q=80&w=1400&auto=format&fit=crop', description:'Lucidatura professionale, protezione ceramica e cura maniacale di ogni superficie per un risultato showroom.' },
+        { id:3, title:'Sanificazione Interni', isVideo:false, notVideo:true, video:'', image:U+'photo-1542282088-fe8426682b8f?q=80&w=1400&auto=format&fit=crop', description:'Pulizia approfondita di sedili, moquette, volante, plancia e superfici interne con prodotti specifici antibatterici e trattamento igienizzante.' },
+        { id:4, title:'Ritiro e Consegna', isVideo:false, notVideo:true, video:'', image:U+'photo-1502877338535-766e1452684a?q=80&w=1400&auto=format&fit=crop', description:'Servizio esclusivo G2000: ritiriamo la tua auto e te la riconsegniamo perfettamente trattata direttamente dove preferisci.' }
+      ],
+      gallery: [
+        'uploads/kling_20260611_Image_to_Video_Anima_ques_5065_0.mp4',
+        'uploads/kling_20260611_Image_to_Video_Anima_ques_5069_0.mp4',
+        'uploads/kling_20260611_Image_to_Video_Anima_ques_5072_0.mp4'
+      ],
+      collab: [
+        { num:1, title:'Flotte Aziendali', description:'Soluzioni dedicate per aziende con più veicoli, lavaggi programmati e gestione periodica della flotta.' },
+        { num:2, title:'Concessionarie e Noleggi', description:'Preparazione estetica, detailing e sanificazione per auto in consegna, esposizione o rientro noleggio.' },
+        { num:3, title:'Collaborazioni Premium', description:'Partnership con officine, carrozzerie, showroom, club auto e realtà automotive del territorio.' }
+      ],
+      testimonials: [{}, {}, {}],
+      calFeatures: ['Prenotazione lavaggi standard', 'Scelta giorno e fascia oraria', 'Disponibilità in tempo reale'],
+      profileFeatures: ['Modifica dati personali', 'Targhe e modelli auto', 'Assistenza H24 tramite messaggi'],
+      vehicles: [
+        { plate:'CA000AA', model:'Auto principale' },
+        { plate:'CA111BB', model:'Seconda auto' }
+      ],
+      messages: [
+        { sender:'G2000 Support', message:'Ciao, come possiamo aiutarti oggi? Il servizio assistenza è disponibile H24 direttamente da questa pagina.', style:'max-width:85%;border-radius:16px;background:#18181b;padding:16px;color:#d1d5db' },
+        { sender:'Cliente', message:'Vorrei informazioni sullo stato della mia lavorazione.', style:'margin-left:auto;max-width:85%;border-radius:16px;background:#facc15;padding:16px;color:#000' }
+      ],
+      about: [
+        { text:'G2000 nasce dalla passione per l’auto e dalla cura dei dettagli. Ogni veicolo che entra nel nostro centro viene trattato con attenzione, precisione e prodotti professionali, perché per noi il lavaggio non è solo pulizia: è valorizzazione, protezione e rispetto dell’auto.', style:'margin:0;font-size:18px;line-height:1.7;color:#9ca3af' },
+        { text:'Il nostro obiettivo è offrire un’esperienza premium a ogni cliente, unendo tecniche moderne, trattamenti specifici e un approccio su misura per ogni esigenza, dal lavaggio 3PH alla lucidatura a step, fino alla sanificazione degli interni.', style:'margin:0;font-size:18px;line-height:1.7;color:#9ca3af' },
+        { text:'In G2000 crediamo che la differenza si veda nei particolari: una superficie perfettamente rifinita, un abitacolo igienizzato, un dettaglio curato meglio degli altri.', style:'margin:0;font-size:18px;line-height:1.7;color:#9ca3af' },
+        { text:'Perché la cura dell’auto sta nei piccoli dettagli.', style:'margin:0;font-size:24px;font-weight:900;color:#facc15;line-height:1.4' }
+      ],
+      contacts: [
+        { label:'Whatsapp', initial:'W', href:'#whatsapp', description:'Pulsante predisposto per il futuro link WhatsApp.' },
+        { label:'Instagram', initial:'I', href:'#instagram', description:'Pulsante predisposto per il futuro link Instagram.' },
+        { label:'Facebook', initial:'F', href:'#facebook', description:'Pulsante predisposto per il futuro link Facebook.' },
+        { label:'E-Mail', initial:'E', href:'mailto:info@g2000.it', description:'Pulsante predisposto per il futuro indirizzo e-mail.' }
+      ],
+
+      goHome: () => this.go('home'),
+      goBooking: () => this.go('booking'),
+      goCollab: () => this.go('collab'),
+      goPortal: () => this.go('portal'),
+      goRegister: () => this.go('register'),
+      goDashboard: () => this.go('dashboard'),
+      goAbout: () => this.go('about'),
+      goProfile: () => this.go('profile'),
+      goHistory: () => this.go('history'),
+      goContacts: () => this.go('contacts'),
+      menuProfilo: () => this.go(li ? 'profile' : 'portal'),
+      menuStorico: () => this.go(li ? 'history' : 'portal'),
+      toggleMenu: () => this.setState(s => ({ showUserMenu: !s.showUserMenu })),
+      toggleAddForm: () => this.setState(s => ({ showAddForm: !s.showAddForm })),
+      setPlate: e => this.setState({ newPlate: e.target.value }),
+      setModel: e => this.setState({ newModel: e.target.value }),
+      doLogin: () => this.doLogin(),
+      doRegister: () => this.doRegister(),
+      doLogout: () => this.doLogout(),
+      submitQuote: () => this.submitQuote(),
+      addVehicle: () => this.addVehicle()
+    };
+  }
+}
+</script>
+</body>
+</html>
