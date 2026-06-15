@@ -56,7 +56,7 @@
       <h1 style="margin:24px 0;font-size:84px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;line-height:0.95">G2000</h1>
       <p style="margin:0 auto 40px;max-width:560px;font-size:22px;line-height:1.6;color:#d1d5db">La cura dell'auto sta nei piccoli dettagli.</p>
       <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center">
-        <button onClick="{{ goPortal }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:700;color:#000;border:none;cursor:pointer;transition:transform .2s" style-hover="background:#fde047;transform:scale(1.05)">Prenota Ora</button>
+        <button onClick="{{ goPrenota }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:700;color:#000;border:none;cursor:pointer;transition:transform .2s" style-hover="background:#fde047;transform:scale(1.05)">Prenota Ora</button>
         <button onClick="{{ goContacts }}" style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 32px;font-size:18px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Contattaci</button>
       </div>
     </div>
@@ -143,7 +143,7 @@
           <div style="display:inline-block;margin-bottom:20px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Aziende e Collab</div>
           <h2 style="margin:0 0 24px;font-size:44px;font-weight:900;text-transform:uppercase;line-height:1.1;color:#fff">Soluzioni dedicate per aziende e partner</h2>
           <p style="margin:0 0 32px;font-size:18px;line-height:1.6;color:#9ca3af">G2000 collabora con aziende, concessionarie, noleggi, officine, carrozzerie e realtà automotive che cercano un servizio professionale, puntuale e curato nei minimi dettagli.</p>
-          <button onClick="{{ goPortal }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Accedi o registrati per collaborare</button>
+          <button onClick="{{ goPrenota }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Accedi o registrati per collaborare</button>
         </div>
         <div style="display:flex;flex-direction:column;gap:24px">
           <sc-for list="{{ collab }}" as="opt" hint-placeholder-count="3">
@@ -198,8 +198,8 @@
         <h2 style="margin:0 0 24px;font-size:44px;font-weight:900;text-transform:uppercase;line-height:1.1;color:#fff">Accedi al tuo portale</h2>
         <p style="margin:0 0 40px;font-size:18px;line-height:1.6;color:#9ca3af">Gestisci le tue richieste di preventivo, controlla lo stato dei servizi e ricevi aggiornamenti direttamente dal team G2000.</p>
         <div style="display:flex;flex-direction:column;gap:20px">
-          <input type="text" placeholder="Nome Utente" style="width:100%;border-radius:16px;border:1px solid #3f3f46;background:#09090b;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-          <input type="password" placeholder="Password" style="width:100%;border-radius:16px;border:1px solid #3f3f46;background:#09090b;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          <input id="g2LoginUser" type="text" placeholder="Nome Utente" style="width:100%;border-radius:16px;border:1px solid #3f3f46;background:#09090b;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          <input id="g2LoginPass" type="password" placeholder="Password" style="width:100%;border-radius:16px;border:1px solid #3f3f46;background:#09090b;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
           <button onClick="{{ doLogin }}" style="width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Accedi al Portale</button>
           <button onClick="{{ goRegister }}" style="width:100%;border-radius:16px;border:1px solid #facc15;background:transparent;padding:20px;font-size:18px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Registrati</button>
           <sc-if value="{{ loginMessage }}">
@@ -211,7 +211,7 @@
         <div style="position:absolute;inset:0;background:rgba(0,0,0,0.6)"></div>
         <div style="position:relative;z-index:10;display:flex;height:100%;flex-direction:column;justify-content:flex-end;padding:48px">
           <h3 style="margin:0 0 16px;font-size:36px;font-weight:900;text-transform:uppercase;color:#fff">G2000 Premium Experience</h3>
-          <p style="margin:0;max-width:420px;font-size:18px;line-height:1.6;color:#d1d5db">Tutte le richieste di preventivo verranno inoltrate automaticamente alla vostra email personale tramite integrazione backend dedicata.</p>
+          <p style="margin:0;max-width:420px;font-size:18px;line-height:1.6;color:#d1d5db">Crea il tuo account per richiedere preventivi, seguire lo stato dei lavori e parlare con il nostro team, tutto in un unico posto.</p>
         </div>
       </div>
     </div>
@@ -236,13 +236,13 @@
         <p style="margin:0 auto;max-width:560px;font-size:18px;line-height:1.6;color:#9ca3af">Crea il tuo account per gestire richieste, preventivi e comunicazioni con G2000.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">
-        <input type="text" placeholder="Nome e Cognome" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-        <input type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-        <input type="email" placeholder="Email" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-        <select style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit"><option>Tipo account</option><option>Cliente privato</option><option>Azienda / Collaborazione</option></select>
-        <input type="text" placeholder="Nome Utente" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-        <input type="password" placeholder="Password" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-        <input type="password" placeholder="Conferma Password" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <input id="g2rNome" type="text" placeholder="Nome e Cognome" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <input id="g2rTel" type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <input id="g2rEmail" type="email" placeholder="Email" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <select id="g2rTipo" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit"><option>Cliente privato</option><option>Azienda / Collaborazione</option></select>
+        <input id="g2rUser" type="text" placeholder="Nome Utente" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <input id="g2rPass" type="password" placeholder="Password" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <input id="g2rPass2" type="password" placeholder="Conferma Password" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
       </div>
       <button onClick="{{ doRegister }}" style="margin-top:32px;width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Crea Account</button>
       <sc-if value="{{ registrationMessage }}">
@@ -288,7 +288,7 @@
                 <p style="margin:0 0 8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Prossimamente</p>
                 <h3 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#fff">Prenota il tuo lavaggio standard</h3>
               </div>
-              <button style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 24px;font-weight:900;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Apri Calendario</button>
+              <span style="display:inline-block;border-radius:16px;border:1px solid rgba(250,204,21,0.3);background:transparent;padding:16px 24px;font-weight:900;color:rgba(250,204,21,0.5);cursor:not-allowed">Prossimamente</span>
             </div>
             <p style="margin:0 0 24px;max-width:760px;line-height:1.6;color:#9ca3af">Questa sezione verrà collegata a un calendario reale per selezionare data, fascia oraria e disponibilità dei lavaggi standard direttamente dal portale cliente.</p>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px">
@@ -301,15 +301,35 @@
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px">
         <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
-          <h3 style="margin:0 0 16px;font-size:24px;font-weight:900;color:#facc15">Richieste Preventivo</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:0 0 16px">
+            <h3 style="margin:0;font-size:24px;font-weight:900;color:#facc15">Richieste Preventivo</h3>
+            <button onClick="{{ doRefresh }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:8px 16px;font-size:13px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">{{ refreshLabel }}</button>
+          </div>
           <p style="margin:0 0 24px;line-height:1.6;color:#9ca3af">Controlla le richieste inviate e lo stato di lavorazione.</p>
-          <div style="border-radius:16px;background:#000;padding:20px;color:#d1d5db">Nessuna richiesta attiva al momento.</div>
+          <sc-if value="{{ noRequests }}">
+            <div style="border-radius:16px;background:#000;padding:20px;color:#d1d5db">Nessuna richiesta attiva al momento.</div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ myRequests }}" as="r" hint-placeholder-count="0">
+              <div style="border-radius:16px;background:#000;padding:16px">
+                <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between">
+                  <span style="font-weight:700;color:#fff">{{ r.servizio }}</span>
+                  <span style="border-radius:999px;border:1px solid rgba(250,204,21,0.4);padding:4px 12px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#facc15">{{ r.stato }}</span>
+                </div>
+                <div style="margin-top:8px;font-size:13px;color:#9ca3af">{{ r.meta }}</div>
+              </div>
+            </sc-for>
+          </div>
         </div>
         <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
           <h3 style="margin:0 0 16px;font-size:24px;font-weight:900;color:#facc15">Servizi G2000</h3>
           <p style="margin:0 0 24px;line-height:1.6;color:#9ca3af">Accedi rapidamente ai trattamenti e richiedi un preventivo personalizzato.</p>
-          <button onClick="{{ goBooking }}" style="margin-bottom:16px;width:100%;border-radius:16px;background:#facc15;padding:16px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Preventivo Privato</button>
-          <button onClick="{{ goCollab }}" style="width:100%;border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px;font-weight:900;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Preventivo Aziendale</button>
+          <sc-if value="{{ isPrivato }}">
+            <button onClick="{{ goBooking }}" style="width:100%;border-radius:16px;background:#facc15;padding:16px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Richiedi Preventivo</button>
+          </sc-if>
+          <sc-if value="{{ isAzienda }}">
+            <button onClick="{{ goCollab }}" style="width:100%;border-radius:16px;background:#facc15;padding:16px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Richiedi Preventivo Aziendale</button>
+          </sc-if>
         </div>
         <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
           <h3 style="margin:0 0 16px;font-size:24px;font-weight:900;color:#facc15">Profilo</h3>
@@ -345,10 +365,10 @@
         <div style="grid-column:span 2;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
           <h3 style="margin:0 0 24px;font-size:30px;font-weight:900;color:#facc15">Dati personali</h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
-            <input type="text" value="Cliente G2000" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="text" value="cliente_g2000" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="email" value="cliente@g2000.it" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="tel" value="+39 3294867819" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="text" value="{{ userNome }}" placeholder="Nome e Cognome" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="text" value="{{ userUsername }}" placeholder="Nome Utente" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="email" value="{{ userEmail }}" placeholder="Email" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="tel" value="{{ userTel }}" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
           </div>
           <button style="margin-top:32px;border-radius:16px;background:#facc15;padding:16px 32px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Salva modifiche</button>
         </div>
@@ -368,10 +388,10 @@
               <h3 style="margin:0;font-size:30px;font-weight:900;color:#facc15">Targhe e modelli auto</h3>
               <p style="margin:8px 0 0;color:#9ca3af">Collega ogni lavorazione alla targa del cliente per creare lo storico completo del veicolo.</p>
             </div>
-            <button style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Aggiungi auto</button>
+            <button onClick="{{ goNewQuote }}" style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Preventivo nuova auto</button>
           </div>
           <div style="display:flex;flex-direction:column;gap:16px">
-            <sc-for list="{{ vehicles }}" as="v" hint-placeholder-count="2">
+            <sc-for list="{{ historyVehicles }}" as="v" hint-placeholder-count="2">
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;border-radius:16px;border:1px solid rgba(250,204,21,0.1);background:#000;padding:20px">
                 <input type="text" value="{{ v.plate }}" style="border-radius:12px;border:1px solid #3f3f46;background:#09090b;padding:12px 16px;text-transform:uppercase;color:#fff;outline:none;font-family:inherit" style-focus="border-color:#facc15" />
                 <input type="text" value="{{ v.model }}" style="border-radius:12px;border:1px solid #3f3f46;background:#09090b;padding:12px 16px;color:#fff;outline:none;font-family:inherit" style-focus="border-color:#facc15" />
@@ -394,8 +414,8 @@
             </sc-for>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:16px">
-            <input type="text" placeholder="Scrivi un messaggio..." style="flex:1;min-width:160px;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-family:inherit" style-focus="border-color:#facc15" />
-            <button style="border-radius:16px;background:#facc15;padding:16px 32px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Invia</button>
+            <input id="g2ChatInput" type="text" placeholder="Scrivi un messaggio..." style="flex:1;min-width:160px;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-family:inherit" style-focus="border-color:#facc15" />
+            <button onClick="{{ doChat }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Invia</button>
           </div>
         </div>
       </div>
@@ -419,29 +439,10 @@
   <section style="padding:80px 24px">
     <div style="margin:0 auto;max-width:1280px">
       <div style="margin-bottom:48px">
-        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Database targhe</div>
+        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Le tue auto</div>
         <h2 style="margin:0 0 24px;font-size:52px;font-weight:900;text-transform:uppercase;color:#fff">Storico lavorazioni</h2>
-        <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between">
-          <p style="margin:0;max-width:760px;font-size:18px;line-height:1.6;color:#9ca3af">In questa sezione verranno raccolte le lavorazioni associate alle targhe dei clienti, così ogni veicolo avrà uno storico completo e consultabile dal portale.</p>
-          <button onClick="{{ toggleAddForm }}" style="display:flex;height:64px;width:64px;flex-shrink:0;align-items:center;justify-content:center;border-radius:16px;background:#facc15;font-size:36px;font-weight:900;color:#000;border:none;cursor:pointer;line-height:1" style-hover="background:#fde047">+</button>
-        </div>
+        <p style="margin:0;max-width:760px;font-size:18px;line-height:1.6;color:#9ca3af">Qui trovi le tue auto e lo storico delle lavorazioni, costruito automaticamente dalle tue richieste di preventivo. Per aggiungere un'auto, richiedi un preventivo per quella vettura.</p>
       </div>
-      <sc-if value="{{ showAddForm }}">
-        <div style="margin-bottom:32px;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
-          <div style="margin-bottom:24px">
-            <h3 style="margin:0;font-size:30px;font-weight:900;color:#facc15">Aggiungi veicolo</h3>
-            <p style="margin:8px 0 0;color:#9ca3af">Inserisci targa e modello per collegare il veicolo allo storico lavorazioni del cliente.</p>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
-            <input type="text" value="{{ newPlate }}" onInput="{{ setPlate }}" placeholder="Targa" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;text-transform:uppercase;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="text" value="{{ newModel }}" onInput="{{ setModel }}" placeholder="Modello" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-          </div>
-          <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:16px">
-            <button onClick="{{ addVehicle }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Salva veicolo</button>
-            <button onClick="{{ toggleAddForm }}" style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 32px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Annulla</button>
-          </div>
-        </div>
-      </sc-if>
       <div style="display:flex;flex-direction:column;gap:24px">
         <sc-for list="{{ historyVehicles }}" as="item" hint-placeholder-count="2">
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;align-items:center;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:24px">
@@ -474,7 +475,7 @@
       <div style="margin-bottom:48px;max-width:760px">
         <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Restiamo in contatto</div>
         <h2 style="margin:0 0 24px;font-size:52px;font-weight:900;text-transform:uppercase;color:#fff">Contatti G2000</h2>
-        <p style="margin:0;font-size:18px;line-height:1.6;color:#d1d5db">Scegli il canale che preferisci per contattarci. Ogni pulsante è già predisposto per collegarsi al link che inserirai in futuro.</p>
+        <p style="margin:0;font-size:18px;line-height:1.6;color:#d1d5db">Scegli il canale che preferisci per contattarci. Ti rispondiamo il prima possibile.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">
         <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="4">
@@ -511,14 +512,15 @@
         <div style="grid-column:span 2;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
           <h3 style="margin:0 0 32px;font-size:30px;font-weight:900;color:#fff">Dati Preventivo</h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
-            <input type="text" placeholder="Nome e Cognome" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="email" placeholder="Email" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="text" placeholder="Targa veicolo" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;text-transform:uppercase;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <select style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit">
+            <input id="g2Nome" type="text" placeholder="Nome e Cognome" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input id="g2Tel" type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input id="g2Email" type="email" placeholder="Email" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input id="g2Targa" type="text" placeholder="Targa veicolo" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;text-transform:uppercase;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input id="g2Modello" type="text" placeholder="Modello auto" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <select id="g2Serv" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit">
               <option>Seleziona Servizio</option><option>Lavaggio Esterno</option><option>Lavaggio Completo</option><option>Detailing Premium</option><option>Trattamento Ceramico</option><option>Lucidature a Step</option><option>Ripristino Fari</option><option>Ozono Terapia</option><option>Sanificazione Interni</option>
             </select>
-            <textarea placeholder="Note aggiuntive" rows="5" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit;resize:vertical" style-focus="border-color:#facc15"></textarea>
+            <textarea id="g2Note" placeholder="Note aggiuntive" rows="5" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit;resize:vertical" style-focus="border-color:#facc15"></textarea>
           </div>
           <button onClick="{{ submitQuote }}" style="margin-top:32px;width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Richiedi Preventivo</button>
           <sc-if value="{{ requestSent }}">
@@ -565,12 +567,11 @@
         <div style="grid-column:span 2;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
           <h3 style="margin:0 0 32px;font-size:30px;font-weight:900;color:#fff">Dati Aziendali</h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
-            <input type="text" placeholder="Nome Società" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="text" placeholder="Referente aziendale" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="email" placeholder="Email" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="text" placeholder="Numero indicativo veicoli" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="text" placeholder="Targa veicolo" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;text-transform:uppercase;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input id="g2cSocieta" type="text" placeholder="Nome Società" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input id="g2cRef" type="text" placeholder="Referente aziendale" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input id="g2cTel" type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input id="g2cEmail" type="email" placeholder="Email" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input id="g2cNum" type="text" placeholder="Numero indicativo veicoli" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
           </div>
           <button onClick="{{ submitQuote }}" style="margin-top:32px;width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Richiedi Preventivo Aziendale</button>
           <sc-if value="{{ requestSent }}">
@@ -672,6 +673,7 @@ class Component extends DCLogic {
   state = {
     page: 'home',
     isLoggedIn: false,
+    username: '',
     showUserMenu: false,
     requestSent: false,
     loginMessage: '',
@@ -679,11 +681,62 @@ class Component extends DCLogic {
     showAddForm: false,
     newPlate: '',
     newModel: '',
-    historyVehicles: [
-      { plate:'CA000AA', model:'Auto principale', service:'Lavaggio Completo 3PH', date:'In attesa database', status:'Storico in preparazione' },
-      { plate:'CA111BB', model:'Seconda auto', service:'Sanificazione Interni', date:'In attesa database', status:'Storico in preparazione' }
+    myRequests: [],
+    historyVehicles: [],
+    userNome: '',
+    userUsername: '',
+    userEmail: '',
+    userTel: '',
+    userTipo: 'privato',
+    refreshing: false,
+    chatMessages: [
+      { sender:'G2000', message:'Ciao! Sono l\'assistente G2000. Come posso aiutarti?', style:'max-width:85%;border-radius:16px;background:#18181b;padding:16px;color:#d1d5db' }
     ]
   };
+
+  get BACKEND() { return 'https://script.google.com/macros/s/AKfycbyM-ddVBCb3_bP8QKMLc_I_BUZcDFm8sEgEW6wVKf7Ai9SiyMD4xBwDgNxk0QIY1Q6k/exec'; }
+
+  // Chiamata al backend con lettura risposta (login/registrazione/dati)
+  async g2call(payload) {
+    const res = await fetch(this.BACKEND, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) });
+    return await res.json();
+  }
+
+  // Carica le richieste e i veicoli dell'utente loggato
+  async loadMyData() {
+    try {
+      const t = localStorage.getItem('g2000_token');
+      if (!t) return;
+      const r = await this.g2call({ action:'getMyData', token:t });
+      if (!r || !r.ok) return;
+      const fmt = (d) => { try { const x = new Date(d); return x.toLocaleDateString('it-IT'); } catch(e){ return ''; } };
+      const u = r.utente || {};
+      const reqs = (r.richieste||[]).map(x => {
+        const targa = (x.targa||'').toUpperCase();
+        const tipo = x.tipo||'';
+        const data = fmt(x.data);
+        const meta = [tipo, targa, data].filter(s => s).join(' · ');
+        return { servizio:x.servizio||tipo, stato:x.stato||'Nuova', tipo, targa, data, meta };
+      });
+      const myRequests = reqs.slice().reverse(); // più recenti in cima
+      // deduplica veicoli per targa
+      const seen = {}, veicoli = [];
+      (r.veicoli||[]).forEach(v => { const k = (v.targa||'').toUpperCase(); if (k && !seen[k]) { seen[k] = 1; veicoli.push(v); } });
+      // collega ogni veicolo all'ultima richiesta con la stessa targa
+      const historyVehicles = veicoli.map(v => {
+        const tk = (v.targa||'').toUpperCase();
+        const last = myRequests.find(rq => rq.targa === tk);
+        return { plate:v.targa, model:v.modello||'—',
+          service: last ? last.servizio : 'Nessuna lavorazione',
+          date: last ? last.data : '—',
+          status: last ? last.stato : 'Veicolo salvato' };
+      });
+      this.setState({ myRequests, historyVehicles,
+        userNome: u.nome || '', userUsername: u.username || '',
+        userEmail: u.email || '', userTel: u.telefono ? String(u.telefono) : '',
+        userTipo: u.tipo || 'privato' });
+    } catch(e) {}
+  }
 
   playHero() {
     document.querySelectorAll('video').forEach(v => {
@@ -698,6 +751,10 @@ class Component extends DCLogic {
     });
   }
   componentDidMount() {
+    try {
+      const t = localStorage.getItem('g2000_token'), u = localStorage.getItem('g2000_user');
+      if (t && u) { this.setState({ isLoggedIn:true, username:u }); this.loadMyData(); }
+    } catch(e) {}
     setTimeout(() => this.playHero(), 50);
     setTimeout(() => this.initSliders(), 60);
     if (!window.__g2000Glow) {
@@ -735,29 +792,112 @@ class Component extends DCLogic {
   go(page) {
     this.setState({ page, showUserMenu:false, requestSent:false, loginMessage:'', registrationMessage:'', showAddForm:false, newPlate:'', newModel:'' });
   }
-  doLogin() {
-    this.setState({ loginMessage:'Accesso effettuato. Apertura dashboard...' });
-    setTimeout(() => this.setState({ isLoggedIn:true, page:'dashboard', loginMessage:'' }), 800);
+  async doLogin() {
+    const g = (id) => { const el = document.getElementById(id); return el && el.value ? el.value.trim() : ''; };
+    const username = g('g2LoginUser'), password = g('g2LoginPass');
+    if (!username || !password) { this.setState({ loginMessage:'Inserisci nome utente e password.' }); return; }
+    this.setState({ loginMessage:'Accesso in corso...' });
+    try {
+      const r = await this.g2call({ action:'login', username, password });
+      if (r && r.ok) {
+        localStorage.setItem('g2000_token', r.token);
+        localStorage.setItem('g2000_user', r.username);
+        this.setState({ isLoggedIn:true, username:r.username, userTipo:r.tipo||'privato', page:'dashboard', loginMessage:'' });
+        this.loadMyData();
+      } else {
+        this.setState({ loginMessage: 'Credenziali non valide.' });
+      }
+    } catch(e) {
+      this.setState({ loginMessage:'Errore di connessione. Riprova.' });
+    }
   }
-  doRegister() {
-    this.setState({ registrationMessage:'Registrazione completata correttamente. Accesso al portale in corso...' });
-    setTimeout(() => this.setState({ isLoggedIn:true, page:'dashboard', registrationMessage:'' }), 1000);
+  async doRegister() {
+    const g = (id) => { const el = document.getElementById(id); return el && el.value ? el.value.trim() : ''; };
+    const nome = g('g2rNome'), telefono = g('g2rTel'), email = g('g2rEmail');
+    const username = g('g2rUser'), password = g('g2rPass'), password2 = g('g2rPass2');
+    const tipoSel = g('g2rTipo');
+    const tipo = (tipoSel && tipoSel.indexOf('Azienda') >= 0) ? 'azienda' : 'privato';
+    if (!nome || !username || !password) { this.setState({ registrationMessage:'Compila nome, nome utente e password.' }); return; }
+    if (password !== password2) { this.setState({ registrationMessage:'Le due password non coincidono.' }); return; }
+    this.setState({ registrationMessage:'Registrazione in corso...' });
+    try {
+      const r = await this.g2call({ action:'register', nome, telefono, email, username, password, tipo });
+      if (r && r.ok) {
+        localStorage.setItem('g2000_token', r.token);
+        localStorage.setItem('g2000_user', r.username);
+        this.setState({ isLoggedIn:true, username:r.username, userTipo:r.tipo||tipo, page:'dashboard', registrationMessage:'' });
+        this.loadMyData();
+      } else {
+        this.setState({ registrationMessage: (r && r.error) ? r.error : 'Registrazione non riuscita.' });
+      }
+    } catch(e) {
+      this.setState({ registrationMessage:'Errore di connessione. Riprova.' });
+    }
   }
   submitQuote() {
+    var g = function(id){ var el = document.getElementById(id); return el && el.value ? el.value.trim() : ''; };
+    var payload;
+    if (this.state.page === 'collab') {
+      payload = { action:'submitRequest', tipo:'Preventivo Aziendale',
+        azienda:g('g2cSocieta'), nome:g('g2cRef'), telefono:g('g2cTel'), email:g('g2cEmail'),
+        targa:'', modello:'', servizio:'Preventivo aziendale',
+        messaggio:'Numero veicoli: ' + g('g2cNum') };
+    } else {
+      payload = { action:'submitRequest', tipo:'Preventivo Privato',
+        nome:g('g2Nome'), telefono:g('g2Tel'), email:g('g2Email'),
+        targa:g('g2Targa'), modello:g('g2Modello'), servizio:g('g2Serv'), messaggio:g('g2Note') };
+    }
+    if (!payload.nome || (!payload.telefono && !payload.email)) {
+      alert('Inserisci almeno il nome e un contatto (telefono o email).');
+      return;
+    }
+    payload.utente = this.state.username || 'ospite';
     this.setState({ requestSent:true });
-    setTimeout(() => this.setState({ isLoggedIn:true, page:'home', requestSent:false }), 1200);
+    try {
+      fetch(this.BACKEND, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) });
+      if (this.state.isLoggedIn && payload.targa) {
+        const t = localStorage.getItem('g2000_token');
+        this.g2call({ action:'addVehicle', token:t, targa:payload.targa, modello:payload.modello||'' });
+      }
+    } catch (e) {}
+    setTimeout(() => { this.setState({ page:'dashboard', requestSent:false }); this.loadMyData(); }, 2200);
   }
   doLogout() {
-    this.setState({ page:'logout', isLoggedIn:false, showUserMenu:false });
+    try { localStorage.removeItem('g2000_token'); localStorage.removeItem('g2000_user'); } catch(e) {}
+    this.setState({ page:'logout', isLoggedIn:false, showUserMenu:false, username:'', myRequests:[], historyVehicles:[] });
   }
-  addVehicle() {
+  async addVehicle() {
     const plate = (this.state.newPlate||'').trim().toUpperCase();
     const model = (this.state.newModel||'').trim();
     if (!plate || !model) return;
-    this.setState(s => ({
-      historyVehicles: [{ plate, model, service:'Nessuna lavorazione registrata', date:'In attesa database', status:'Veicolo aggiunto dal cliente' }, ...s.historyVehicles],
-      newPlate:'', newModel:'', showAddForm:false
-    }));
+    this.setState({ newPlate:'', newModel:'', showAddForm:false });
+    try {
+      const t = localStorage.getItem('g2000_token');
+      await this.g2call({ action:'addVehicle', token:t, targa:plate, modello:model });
+      this.loadMyData();
+    } catch(e) {}
+  }
+  async doRefresh() {
+    this.setState({ refreshing:true });
+    await this.loadMyData();
+    this.setState({ refreshing:false });
+  }
+  async doChat() {
+    const el = document.getElementById('g2ChatInput');
+    const text = el && el.value ? el.value.trim() : '';
+    if (!text) return;
+    const botStyle = 'max-width:85%;border-radius:16px;background:#18181b;padding:16px;color:#d1d5db';
+    const userStyle = 'margin-left:auto;max-width:85%;border-radius:16px;background:#facc15;padding:16px;color:#000';
+    const base = this.state.chatMessages.concat([{ sender:'Tu', message:text, style:userStyle }]);
+    this.setState({ chatMessages: base.concat([{ sender:'G2000', message:'…', style:botStyle }]) });
+    if (el) el.value = '';
+    try {
+      const r = await this.g2call({ action:'chat', message:text });
+      const reply = (r && r.reply) ? r.reply : 'Per assistenza scrivici su WhatsApp.';
+      this.setState({ chatMessages: base.concat([{ sender:'G2000', message:reply, style:botStyle }]) });
+    } catch (e) {
+      this.setState({ chatMessages: base.concat([{ sender:'G2000', message:'Al momento non riesco a rispondere. Scrivici su WhatsApp e ti aiutiamo subito.', style:botStyle }]) });
+    }
   }
 
   renderVals() {
@@ -780,6 +920,15 @@ class Component extends DCLogic {
       newPlate: this.state.newPlate,
       newModel: this.state.newModel,
       historyVehicles: this.state.historyVehicles,
+      myRequests: this.state.myRequests,
+      noRequests: (this.state.myRequests || []).length === 0,
+      userNome: this.state.userNome,
+      userUsername: this.state.userUsername,
+      userEmail: this.state.userEmail,
+      userTel: this.state.userTel,
+      isPrivato: (this.state.userTipo || 'privato') !== 'azienda',
+      isAzienda: (this.state.userTipo || 'privato') === 'azienda',
+      refreshLabel: this.state.refreshing ? 'Aggiorno…' : 'Aggiorna',
 
       heroPoster: U+'photo-1607860108855-64acf2078ed9?q=80&w=1600&auto=format&fit=crop',
       portalImg: U+'photo-1503376780353-7e6692767b70?q=80&w=1400&auto=format&fit=crop',
@@ -815,10 +964,7 @@ class Component extends DCLogic {
         { plate:'CA000AA', model:'Auto principale' },
         { plate:'CA111BB', model:'Seconda auto' }
       ],
-      messages: [
-        { sender:'G2000 Support', message:'Ciao, come possiamo aiutarti oggi? Il servizio assistenza è disponibile H24 direttamente da questa pagina.', style:'max-width:85%;border-radius:16px;background:#18181b;padding:16px;color:#d1d5db' },
-        { sender:'Cliente', message:'Vorrei informazioni sullo stato della mia lavorazione.', style:'margin-left:auto;max-width:85%;border-radius:16px;background:#facc15;padding:16px;color:#000' }
-      ],
+      messages: this.state.chatMessages,
       about: [
         { text:'G2000 nasce dalla passione per l’auto e dalla cura dei dettagli. Ogni veicolo che entra nel nostro centro viene trattato con attenzione, precisione e prodotti professionali, perché per noi il lavaggio non è solo pulizia: è valorizzazione, protezione e rispetto dell’auto.', style:'margin:0;font-size:18px;line-height:1.7;color:#9ca3af' },
         { text:'Il nostro obiettivo è offrire un’esperienza premium a ogni cliente, unendo tecniche moderne, trattamenti specifici e un approccio su misura per ogni esigenza, dal lavaggio 3PH alla lucidatura a step, fino alla sanificazione degli interni.', style:'margin:0;font-size:18px;line-height:1.7;color:#9ca3af' },
@@ -826,16 +972,17 @@ class Component extends DCLogic {
         { text:'Perché la cura dell’auto sta nei piccoli dettagli.', style:'margin:0;font-size:24px;font-weight:900;color:#facc15;line-height:1.4' }
       ],
       contacts: [
-        { label:'Whatsapp', initial:'W', href:'#whatsapp', description:'Pulsante predisposto per il futuro link WhatsApp.' },
-        { label:'Instagram', initial:'I', href:'#instagram', description:'Pulsante predisposto per il futuro link Instagram.' },
-        { label:'Facebook', initial:'F', href:'#facebook', description:'Pulsante predisposto per il futuro link Facebook.' },
-        { label:'E-Mail', initial:'E', href:'mailto:info@g2000.it', description:'Pulsante predisposto per il futuro indirizzo e-mail.' }
+        { label:'Whatsapp', initial:'W', href:'#whatsapp', description:'Scrivici su WhatsApp per informazioni rapide.' },
+        { label:'Instagram', initial:'I', href:'https://www.instagram.com/gar_age2000/', description:'Seguici su Instagram: foto, lavorazioni e novità.' },
+        { label:'Facebook', initial:'F', href:'#facebook', description:'Seguici su Facebook per novità e promozioni.' },
+        { label:'E-Mail', initial:'E', href:'mailto:info@g2000.it', description:'Scrivici una email per richieste dettagliate.' }
       ],
 
       goHome: () => this.go('home'),
       goBooking: () => this.go('booking'),
       goCollab: () => this.go('collab'),
-      goPortal: () => this.go('portal'),
+      goPortal: () => this.go(this.state.isLoggedIn ? 'dashboard' : 'portal'),
+      goPrenota: () => { if (this.state.isLoggedIn) { this.go(this.state.userTipo === 'azienda' ? 'collab' : 'booking'); } else { this.go('portal'); } },
       goRegister: () => this.go('register'),
       goDashboard: () => this.go('dashboard'),
       goAbout: () => this.go('about'),
@@ -851,6 +998,9 @@ class Component extends DCLogic {
       doLogin: () => this.doLogin(),
       doRegister: () => this.doRegister(),
       doLogout: () => this.doLogout(),
+      doRefresh: () => this.doRefresh(),
+      doChat: () => this.doChat(),
+      goNewQuote: () => this.go((this.state.userTipo === 'azienda') ? 'collab' : 'booking'),
       submitQuote: () => this.submitQuote(),
       addVehicle: () => this.addVehicle()
     };
