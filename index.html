@@ -280,17 +280,17 @@
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
             </div>
             <h3 style="margin:0 0 16px;font-size:30px;font-weight:900;text-transform:uppercase">Calendario Lavaggi</h3>
-            <p style="margin:0;font-size:16px;font-weight:600;line-height:1.6;color:rgba(0,0,0,0.8)">Banner dedicato al futuro sistema di prenotazione rapida per i lavaggi standard.</p>
+            <p style="margin:0;font-size:16px;font-weight:600;line-height:1.6;color:rgba(0,0,0,0.8)">Prenota online il tuo lavaggio scegliendo giorno e orario, direttamente dal portale.</p>
           </div>
           <div style="grid-column:span 2;padding:32px">
             <div style="margin-bottom:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
               <div>
-                <p style="margin:0 0 8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Prossimamente</p>
+                <p style="margin:0 0 8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Prenotazioni online</p>
                 <h3 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#fff">Prenota il tuo lavaggio standard</h3>
               </div>
-              <span style="display:inline-block;border-radius:16px;border:1px solid rgba(250,204,21,0.3);background:transparent;padding:16px 24px;font-weight:900;color:rgba(250,204,21,0.5);cursor:not-allowed">Prossimamente</span>
+              <a href="https://calendar.app.google/rHui9sE7k1fqP1Lu8" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 24px;font-weight:900;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Prenota lavaggio</a>
             </div>
-            <p style="margin:0 0 24px;max-width:760px;line-height:1.6;color:#9ca3af">Questa sezione verrà collegata a un calendario reale per selezionare data, fascia oraria e disponibilità dei lavaggi standard direttamente dal portale cliente.</p>
+            <p style="margin:0 0 24px;max-width:760px;line-height:1.6;color:#9ca3af">Scegli data e fascia oraria in base alla disponibilità e ricevi conferma immediata.</p>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px">
               <sc-for list="{{ calFeatures }}" as="f" hint-placeholder-count="3">
                 <div style="border-radius:16px;border:1px solid rgba(250,204,21,0.1);background:#000;padding:16px;font-size:14px;font-weight:600;color:#d1d5db">{{ f }}</div>
@@ -531,14 +531,14 @@
           <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
             <h3 style="margin:0 0 24px;font-size:24px;font-weight:900;color:#facc15">Orari Disponibili</h3>
             <div style="display:flex;flex-direction:column;gap:16px;color:#d1d5db">
-              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Lunedì - Sabato</span><span style="font-weight:700;color:#facc15">09:00 - 19:00</span></div>
-              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Domenica</span><span style="font-weight:700;color:#f87171">Chiuso</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Lun – Ven</span><span style="font-weight:700;color:#facc15">09–13 · 15–19</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Sab – Dom</span><span style="font-weight:700;color:#f87171">Chiuso</span></div>
             </div>
           </div>
           <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
             <h3 style="margin:0 0 24px;font-size:24px;font-weight:900;color:#facc15">Contatto Rapido</h3>
             <p style="margin:0 0 24px;line-height:1.6;color:#9ca3af">Preferisci prenotare direttamente? Contattaci subito su WhatsApp.</p>
-            <button style="width:100%;border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 24px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Scrivici su WhatsApp</button>
+            <a href="https://wa.me/393516303367?text=Ciao%20G2000%2C%20vorrei%20prenotare%20un%20servizio" target="_blank" rel="noopener" style="display:block;box-sizing:border-box;text-align:center;text-decoration:none;width:100%;border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 24px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Scrivici su WhatsApp</a>
           </div>
         </div>
       </div>
@@ -593,8 +593,8 @@
           <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
             <h3 style="margin:0 0 24px;font-size:24px;font-weight:900;color:#facc15">Orari</h3>
             <div style="display:flex;flex-direction:column;gap:16px;color:#d1d5db">
-              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Lunedì - Sabato</span><span style="font-weight:700;color:#facc15">09:00 - 19:00</span></div>
-              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Domenica</span><span style="font-weight:700;color:#f87171">Chiuso</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Lun – Ven</span><span style="font-weight:700;color:#facc15">09–13 · 15–19</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;border-radius:16px;background:#000;padding:16px"><span>Sab – Dom</span><span style="font-weight:700;color:#f87171">Chiuso</span></div>
             </div>
           </div>
         </div>
@@ -694,7 +694,7 @@ class Component extends DCLogic {
     ]
   };
 
-  get BACKEND() { return 'https://script.google.com/macros/s/AKfycbyM-ddVBCb3_bP8QKMLc_I_BUZcDFm8sEgEW6wVKf7Ai9SiyMD4xBwDgNxk0QIY1Q6k/exec'; }
+  get BACKEND() { return 'https://script.google.com/macros/s/AKfycbzig5o08pk1fEAtbTw2FP5PW5OLAS6gu4lZEQgSTez2AZlNBALllVW-6ucwDQm5Ytay/exec'; }
 
   // Chiamata al backend con lettura risposta (login/registrazione/dati)
   async g2call(payload) {
@@ -972,10 +972,9 @@ class Component extends DCLogic {
         { text:'Perché la cura dell’auto sta nei piccoli dettagli.', style:'margin:0;font-size:24px;font-weight:900;color:#facc15;line-height:1.4' }
       ],
       contacts: [
-        { label:'Whatsapp', initial:'W', href:'#whatsapp', description:'Scrivici su WhatsApp per informazioni rapide.' },
+        { label:'Whatsapp', initial:'W', href:'https://wa.me/393516303367?text=Ciao%20G2000%2C%20vorrei%20informazioni', description:'Scrivici su WhatsApp per informazioni rapide.' },
         { label:'Instagram', initial:'I', href:'https://www.instagram.com/gar_age2000/', description:'Seguici su Instagram: foto, lavorazioni e novità.' },
-        { label:'Facebook', initial:'F', href:'#facebook', description:'Seguici su Facebook per novità e promozioni.' },
-        { label:'E-Mail', initial:'E', href:'mailto:info@g2000.it', description:'Scrivici una email per richieste dettagliate.' }
+        { label:'E-Mail', initial:'E', href:'mailto:garage2000.info@gmail.com', description:'Scrivici una email per richieste dettagliate.' }
       ],
 
       goHome: () => this.go('home'),
