@@ -56,8 +56,8 @@
       <h1 style="margin:24px 0;font-size:84px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;line-height:0.95">G2000</h1>
       <p style="margin:0 auto 40px;max-width:560px;font-size:22px;line-height:1.6;color:#d1d5db">La cura dell'auto sta nei piccoli dettagli.</p>
       <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center">
-        <button onClick="{{ goPrenota }}" style="border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:700;color:#000;border:none;cursor:pointer;transition:transform .2s" style-hover="background:#fde047;transform:scale(1.05)">Prenota Ora</button>
-        <button onClick="{{ goContacts }}" style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 32px;font-size:18px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Contattaci</button>
+        <a href="https://calendar.app.google/Wv6RvpMnHRuwFeL49" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;border-radius:16px;background:#facc15;padding:16px 32px;font-size:18px;font-weight:700;color:#000;cursor:pointer;transition:transform .2s" style-hover="background:#fde047;transform:scale(1.05)">Prenota Ora</a>
+        <button onClick="{{ goPrenota }}" style="border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 32px;font-size:18px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Richiedi Preventivo</button>
       </div>
     </div>
   </section>
@@ -199,11 +199,15 @@
         <p style="margin:0 0 40px;font-size:18px;line-height:1.6;color:#9ca3af">Gestisci le tue richieste di preventivo, controlla lo stato dei servizi e ricevi aggiornamenti direttamente dal team G2000.</p>
         <div style="display:flex;flex-direction:column;gap:20px">
           <input id="g2LoginUser" type="text" placeholder="Nome Utente" style="width:100%;border-radius:16px;border:1px solid #3f3f46;background:#09090b;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-          <input id="g2LoginPass" type="password" placeholder="Password" style="width:100%;border-radius:16px;border:1px solid #3f3f46;background:#09090b;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          <div style="position:relative">
+            <input id="g2LoginPass" type="password" placeholder="Password" style="width:100%;box-sizing:border-box;border-radius:16px;border:1px solid #3f3f46;background:#09090b;padding:16px 54px 16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <button onClick="{{ toggleLoginPw }}" type="button" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#9ca3af;cursor:pointer;font-size:18px;padding:8px;line-height:1">👁</button>
+          </div>
           <button onClick="{{ doLogin }}" style="width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Accedi al Portale</button>
           <button onClick="{{ goRegister }}" style="width:100%;border-radius:16px;border:1px solid #facc15;background:transparent;padding:20px;font-size:18px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Registrati</button>
+          <button onClick="{{ goReset }}" type="button" style="background:none;border:none;color:#9ca3af;cursor:pointer;font-size:14px;text-decoration:underline;padding:6px;align-self:center">Password dimenticata?</button>
           <sc-if value="{{ loginMessage }}">
-            <div style="border-radius:16px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.1);padding:16px;text-align:center;color:#4ade80">{{ loginMessage }}</div>
+            <div style="border-radius:16px;border:1px solid rgba(250,204,21,0.35);background:rgba(250,204,21,0.08);padding:16px;text-align:center;color:#f5e9c8">{{ loginMessage }}</div>
           </sc-if>
         </div>
       </div>
@@ -241,13 +245,54 @@
         <input id="g2rEmail" type="email" placeholder="Email" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
         <select id="g2rTipo" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit"><option>Cliente privato</option><option>Azienda / Collaborazione</option></select>
         <input id="g2rUser" type="text" placeholder="Nome Utente" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-        <input id="g2rPass" type="password" placeholder="Password" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-        <input id="g2rPass2" type="password" placeholder="Conferma Password" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <div style="position:relative">
+          <input id="g2rPass" type="password" placeholder="Password" style="width:100%;box-sizing:border-box;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 54px 16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          <button onClick="{{ toggleRegPw }}" type="button" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#9ca3af;cursor:pointer;font-size:18px;padding:8px;line-height:1">👁</button>
+        </div>
+        <div style="position:relative;grid-column:1/-1">
+          <input id="g2rPass2" type="password" placeholder="Conferma Password" style="width:100%;box-sizing:border-box;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 54px 16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          <button onClick="{{ toggleRegPw }}" type="button" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#9ca3af;cursor:pointer;font-size:18px;padding:8px;line-height:1">👁</button>
+        </div>
       </div>
       <button onClick="{{ doRegister }}" style="margin-top:32px;width:100%;border-radius:16px;background:#facc15;padding:20px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Crea Account</button>
       <sc-if value="{{ registrationMessage }}">
-        <div style="margin-top:24px;border-radius:16px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.1);padding:20px;text-align:center;color:#4ade80">{{ registrationMessage }}</div>
+        <div style="margin-top:24px;border-radius:16px;border:1px solid rgba(250,204,21,0.35);background:rgba(250,204,21,0.08);padding:20px;text-align:center;color:#f5e9c8">{{ registrationMessage }}</div>
       </sc-if>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ RESET PASSWORD ============ -->
+<sc-if value="{{ isReset }}">
+<div>
+  <div style="border-bottom:1px solid rgba(250,204,21,0.2);background:#09090b;padding:20px 24px">
+    <div style="margin:0 auto;max-width:1280px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h1 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#facc15">G2000</h1><p style="margin:4px 0 0;font-size:14px;color:#9ca3af">Recupero Password</p></div>
+      <button onClick="{{ goPortal }}" style="border-radius:12px;border:1px solid #facc15;background:transparent;padding:12px 20px;font-size:14px;font-weight:600;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Torna al Login</button>
+    </div>
+  </div>
+  <section style="display:flex;min-height:85vh;align-items:center;justify-content:center;padding:80px 24px">
+    <div style="width:100%;max-width:560px;border-radius:40px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:48px">
+      <div style="margin-bottom:28px;text-align:center">
+        <div style="display:inline-block;margin-bottom:16px;border-radius:999px;border:1px solid rgba(250,204,21,0.3);background:rgba(250,204,21,0.1);padding:8px 16px;font-size:13px;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Recupero Password</div>
+        <h2 style="margin:0 0 12px;font-size:38px;font-weight:900;text-transform:uppercase;color:#fff">Reimposta la password</h2>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#9ca3af">1) Inserisci la tua email e richiedi il codice.<br>2) Inserisci il codice ricevuto e la nuova password.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <input id="g2ResetEmail" type="email" placeholder="La tua email" style="width:100%;box-sizing:border-box;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <button onClick="{{ doRequestReset }}" style="width:100%;border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px;font-size:16px;font-weight:700;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Invia codice via email</button>
+        <div style="height:1px;background:rgba(250,204,21,0.15);margin:6px 0"></div>
+        <input id="g2ResetCode" type="text" placeholder="Codice ricevuto via email" style="width:100%;box-sizing:border-box;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+        <div style="position:relative">
+          <input id="g2ResetPass" type="password" placeholder="Nuova password" style="width:100%;box-sizing:border-box;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 54px 16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+          <button onClick="{{ toggleResetPw }}" type="button" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#9ca3af;cursor:pointer;font-size:18px;padding:8px;line-height:1">👁</button>
+        </div>
+        <button onClick="{{ doDoReset }}" style="width:100%;border-radius:16px;background:#facc15;padding:18px;font-size:18px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Reimposta password</button>
+        <sc-if value="{{ resetMessage }}">
+          <div style="border-radius:16px;border:1px solid rgba(250,204,21,0.35);background:rgba(250,204,21,0.08);padding:16px;text-align:center;color:#f5e9c8">{{ resetMessage }}</div>
+        </sc-if>
+      </div>
     </div>
   </section>
 </div>
@@ -288,7 +333,7 @@
                 <p style="margin:0 0 8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#facc15">Prenotazioni online</p>
                 <h3 style="margin:0;font-size:30px;font-weight:900;text-transform:uppercase;color:#fff">Prenota il tuo lavaggio standard</h3>
               </div>
-              <a href="https://calendar.app.google/rHui9sE7k1fqP1Lu8" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 24px;font-weight:900;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Prenota lavaggio</a>
+              <a href="https://calendar.app.google/Wv6RvpMnHRuwFeL49" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;border-radius:16px;border:1px solid #facc15;background:transparent;padding:16px 24px;font-weight:900;color:#facc15;cursor:pointer" style-hover="background:#facc15;color:#000">Prenota lavaggio</a>
             </div>
             <p style="margin:0 0 24px;max-width:760px;line-height:1.6;color:#9ca3af">Scegli data e fascia oraria in base alla disponibilità e ricevi conferma immediata.</p>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px">
@@ -365,20 +410,17 @@
         <div style="grid-column:span 2;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
           <h3 style="margin:0 0 24px;font-size:30px;font-weight:900;color:#facc15">Dati personali</h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
-            <input type="text" value="{{ userNome }}" placeholder="Nome e Cognome" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="text" value="{{ userUsername }}" placeholder="Nome Utente" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="email" value="{{ userEmail }}" placeholder="Email" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input type="tel" value="{{ userTel }}" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <input type="text" value="{{ userNome }}" readonly style="border-radius:16px;border:1px solid #2a2a2e;background:#0d0d0f;padding:16px 20px;color:#bdbdbd;outline:none;font-size:15px;font-family:inherit;cursor:default" />
+            <input type="text" value="{{ userUsername }}" readonly style="border-radius:16px;border:1px solid #2a2a2e;background:#0d0d0f;padding:16px 20px;color:#bdbdbd;outline:none;font-size:15px;font-family:inherit;cursor:default" />
+            <input type="email" value="{{ userEmail }}" readonly style="border-radius:16px;border:1px solid #2a2a2e;background:#0d0d0f;padding:16px 20px;color:#bdbdbd;outline:none;font-size:15px;font-family:inherit;cursor:default" />
+            <input type="tel" value="{{ userTel }}" readonly style="border-radius:16px;border:1px solid #2a2a2e;background:#0d0d0f;padding:16px 20px;color:#bdbdbd;outline:none;font-size:15px;font-family:inherit;cursor:default" />
           </div>
-          <button style="margin-top:32px;border-radius:16px;background:#facc15;padding:16px 32px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Salva modifiche</button>
+          <p style="margin:20px 0 0;font-size:13px;color:#6b7280">I dati dell'account non sono modificabili. Per correzioni scrivici su WhatsApp.</p>
         </div>
         <div style="border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
-          <h3 style="margin:0 0 24px;font-size:30px;font-weight:900;color:#facc15">Funzioni profilo</h3>
-          <div style="display:flex;flex-direction:column;gap:16px">
-            <sc-for list="{{ profileFeatures }}" as="f" hint-placeholder-count="3">
-              <div style="border-radius:16px;border:1px solid rgba(250,204,21,0.1);background:#000;padding:16px;font-size:14px;font-weight:600;color:#d1d5db">{{ f }}</div>
-            </sc-for>
-          </div>
+          <h3 style="margin:0 0 16px;font-size:30px;font-weight:900;color:#facc15">Assistenza rapida</h3>
+          <p style="margin:0 0 24px;line-height:1.6;color:#9ca3af">Hai bisogno di aiuto o vuoi correggere una richiesta? Scrivici, ti rispondiamo subito.</p>
+          <a href="https://wa.me/393516303367?text=Ciao%20G2000%2C%20ho%20bisogno%20di%20assistenza" target="_blank" rel="noopener" style="display:block;box-sizing:border-box;text-align:center;text-decoration:none;border-radius:16px;background:#facc15;padding:16px;font-weight:900;color:#000;cursor:pointer" style-hover="background:#fde047">Scrivici su WhatsApp</a>
         </div>
       </div>
       <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px">
@@ -444,6 +486,12 @@
         <p style="margin:0;max-width:760px;font-size:18px;line-height:1.6;color:#9ca3af">Qui trovi le tue auto e lo storico delle lavorazioni, costruito automaticamente dalle tue richieste di preventivo. Per aggiungere un'auto, richiedi un preventivo per quella vettura.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:24px">
+        <sc-if value="{{ noVehicles }}">
+          <div style="border-radius:24px;border:1px dashed rgba(250,204,21,0.35);background:#09090b;padding:48px 32px;text-align:center">
+            <p style="margin:0 0 24px;font-size:18px;line-height:1.6;color:#9ca3af">Non hai ancora auto registrate.<br>Richiedi un preventivo per la tua auto: comparirà qui con il servizio e lo stato della lavorazione.</p>
+            <button onClick="{{ goNewQuote }}" style="border-radius:16px;background:#facc15;padding:16px 28px;font-weight:900;color:#000;border:none;cursor:pointer" style-hover="background:#fde047">Richiedi preventivo</button>
+          </div>
+        </sc-if>
         <sc-for list="{{ historyVehicles }}" as="item" hint-placeholder-count="2">
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;align-items:center;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:24px">
             <div><p style="margin:0 0 4px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#6b7280">Targa</p><p style="margin:0;font-size:24px;font-weight:900;color:#facc15">{{ item.plate }}</p></div>
@@ -512,13 +560,11 @@
         <div style="grid-column:span 2;border-radius:24px;border:1px solid rgba(250,204,21,0.2);background:#09090b;padding:32px">
           <h3 style="margin:0 0 32px;font-size:30px;font-weight:900;color:#fff">Dati Preventivo</h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
-            <input id="g2Nome" type="text" placeholder="Nome e Cognome" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input id="g2Tel" type="tel" placeholder="Telefono" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
-            <input id="g2Email" type="email" placeholder="Email" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
+            <div style="grid-column:1/-1;border-radius:16px;border:1px solid rgba(250,204,21,0.25);background:rgba(250,204,21,0.06);padding:14px 18px;font-size:14px;color:#d1d5db">Richiesta inviata come <b style="color:#facc15">{{ userNome }}</b> · {{ userEmail }}</div>
             <input id="g2Targa" type="text" placeholder="Targa veicolo" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;text-transform:uppercase;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
             <input id="g2Modello" type="text" placeholder="Modello auto" style="border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit" style-focus="border-color:#facc15" />
             <select id="g2Serv" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit">
-              <option>Seleziona Servizio</option><option>Lavaggio Esterno</option><option>Lavaggio Completo</option><option>Detailing Premium</option><option>Trattamento Ceramico</option><option>Lucidature a Step</option><option>Ripristino Fari</option><option>Ozono Terapia</option><option>Sanificazione Interni</option>
+              <option>Seleziona Servizio</option><option>Detailing Premium</option><option>Trattamento Ceramico</option><option>Lucidature a Step</option><option>Ripristino Fari</option><option>Ozono Terapia</option><option>Sanificazione Interni</option>
             </select>
             <textarea id="g2Note" placeholder="Note aggiuntive" rows="5" style="grid-column:1/-1;border-radius:16px;border:1px solid #3f3f46;background:#000;padding:16px 20px;color:#fff;outline:none;font-size:15px;font-family:inherit;resize:vertical" style-focus="border-color:#facc15"></textarea>
           </div>
@@ -678,6 +724,7 @@ class Component extends DCLogic {
     requestSent: false,
     loginMessage: '',
     registrationMessage: '',
+    resetMessage: '',
     showAddForm: false,
     newPlate: '',
     newModel: '',
@@ -790,7 +837,7 @@ class Component extends DCLogic {
   }
 
   go(page) {
-    this.setState({ page, showUserMenu:false, requestSent:false, loginMessage:'', registrationMessage:'', showAddForm:false, newPlate:'', newModel:'' });
+    this.setState({ page, showUserMenu:false, requestSent:false, loginMessage:'', registrationMessage:'', resetMessage:'', showAddForm:false, newPlate:'', newModel:'' });
   }
   async doLogin() {
     const g = (id) => { const el = document.getElementById(id); return el && el.value ? el.value.trim() : ''; };
@@ -844,7 +891,7 @@ class Component extends DCLogic {
         messaggio:'Numero veicoli: ' + g('g2cNum') };
     } else {
       payload = { action:'submitRequest', tipo:'Preventivo Privato',
-        nome:g('g2Nome'), telefono:g('g2Tel'), email:g('g2Email'),
+        nome:this.state.userNome, telefono:this.state.userTel, email:this.state.userEmail,
         targa:g('g2Targa'), modello:g('g2Modello'), servizio:g('g2Serv'), messaggio:g('g2Note') };
     }
     if (!payload.nome || (!payload.telefono && !payload.email)) {
@@ -900,13 +947,39 @@ class Component extends DCLogic {
     }
   }
 
+  async doRequestReset() {
+    const g = (id) => { const el = document.getElementById(id); return el && el.value ? el.value.trim() : ''; };
+    const email = g('g2ResetEmail');
+    if (!email) { this.setState({ resetMessage:'Inserisci la tua email.' }); return; }
+    this.setState({ resetMessage:'Invio in corso...' });
+    try {
+      await this.g2call({ action:'requestReset', email });
+      this.setState({ resetMessage:'Se l\'email è registrata, ti abbiamo inviato un codice. Inseriscilo qui sotto con la nuova password.' });
+    } catch (e) { this.setState({ resetMessage:'Errore di connessione. Riprova.' }); }
+  }
+  async doDoReset() {
+    const g = (id) => { const el = document.getElementById(id); return el && el.value ? el.value.trim() : ''; };
+    const email = g('g2ResetEmail'), codice = g('g2ResetCode'), password = g('g2ResetPass');
+    if (!email || !codice || !password) { this.setState({ resetMessage:'Compila email, codice e nuova password.' }); return; }
+    this.setState({ resetMessage:'Aggiornamento in corso...' });
+    try {
+      const r = await this.g2call({ action:'doReset', email, codice, password });
+      if (r && r.ok) {
+        this.setState({ resetMessage:'Password aggiornata! Ti riportiamo al login...' });
+        setTimeout(() => this.go('portal'), 1800);
+      } else {
+        this.setState({ resetMessage: (r && r.error) ? r.error : 'Reset non riuscito.' });
+      }
+    } catch (e) { this.setState({ resetMessage:'Errore di connessione. Riprova.' }); }
+  }
+
   renderVals() {
     const p = this.state.page;
     const li = this.state.isLoggedIn;
     const U = 'https://images.unsplash.com/';
     return {
       isHome: p==='home', isBooking: p==='booking', isCollab: p==='collab',
-      isPortal: p==='portal', isRegister: p==='register', isDashboard: p==='dashboard',
+      isPortal: p==='portal', isRegister: p==='register', isReset: p==='reset', isDashboard: p==='dashboard',
       isAbout: p==='about', isProfile: p==='profile', isHistory: p==='history',
       isContacts: p==='contacts', isLogout: p==='logout',
       isLoggedIn: li, notLoggedIn: !li,
@@ -922,6 +995,7 @@ class Component extends DCLogic {
       historyVehicles: this.state.historyVehicles,
       myRequests: this.state.myRequests,
       noRequests: (this.state.myRequests || []).length === 0,
+      noVehicles: (this.state.historyVehicles || []).length === 0,
       userNome: this.state.userNome,
       userUsername: this.state.userUsername,
       userEmail: this.state.userEmail,
@@ -999,6 +1073,13 @@ class Component extends DCLogic {
       doLogout: () => this.doLogout(),
       doRefresh: () => this.doRefresh(),
       doChat: () => this.doChat(),
+      toggleLoginPw: () => { var el = document.getElementById('g2LoginPass'); if (el) el.type = (el.type === 'password' ? 'text' : 'password'); },
+      toggleRegPw: () => { ['g2rPass','g2rPass2'].forEach(function(id){ var el = document.getElementById(id); if (el) el.type = (el.type === 'password' ? 'text' : 'password'); }); },
+      toggleResetPw: () => { var el = document.getElementById('g2ResetPass'); if (el) el.type = (el.type === 'password' ? 'text' : 'password'); },
+      resetMessage: this.state.resetMessage,
+      goReset: () => this.go('reset'),
+      doRequestReset: () => this.doRequestReset(),
+      doDoReset: () => this.doDoReset(),
       goNewQuote: () => this.go((this.state.userTipo === 'azienda') ? 'collab' : 'booking'),
       submitQuote: () => this.submitQuote(),
       addVehicle: () => this.addVehicle()
